@@ -10,6 +10,11 @@ struct node
 
 */
 
+
+/**
+* See https://en.wikipedia.org/wiki/Tree_traversal
+* for more info
+*/
 /**
 * a parth of depth first search
 * - Check if the current node is empty / null.
