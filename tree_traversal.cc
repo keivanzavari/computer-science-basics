@@ -10,8 +10,6 @@ struct node
 
 */
 
-
-
 /**
 * a parth of depth first search
 * - Check if the current node is empty / null.
@@ -35,7 +33,6 @@ void preOrder(node * root) {
 }
 
 
-
 /**
 * - Check if the current node is empty / null.
 * - Traverse the left subtree by recursively calling the post-order function.
@@ -54,4 +51,27 @@ void postOrder(node *root) {
     if (root->right != NULL) 
         postOrder(root->right);
     std::cout << root->data << " ";
+}
+
+
+/**
+* - Check if the current node is empty / null.
+* - Traverse the left subtree by recursively calling the in-order function.
+* - Display the data part of the root (or current node).
+* - Traverse the right subtree by recursively calling the in-order function.
+*/
+void inOrder(node *root) {
+    if (root == NULL)
+    {
+        std::cout << std::endl;
+        return;
+    }
+    
+    if (root->left != NULL) 
+        inOrder(root->left);
+    
+    std::cout << root->data << " ";
+    
+    if (root->right != NULL) 
+        inOrder(root->right);
 }
