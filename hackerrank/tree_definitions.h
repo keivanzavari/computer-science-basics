@@ -1,18 +1,41 @@
-#include <string>
+#include <string> // NULL is also defined here
 #include <iostream>
 
 /*
 * node definition
 */
-typedef struct node
+struct Node
 {
+    int key;
     int value;
-    struct node* left;
-    struct node* right;
     int height;
+    Node* left;
+    Node* right;
 
-    node(): height(-1), value(0), left(NULL), right(NULL){};
-} node;
+    Node(): 
+    height(-1), value(0), key(0), 
+    left(NULL), right(NULL)
+    {};
+    
+    Node(int k, int v): 
+    height(0), value(v), key(k), 
+    left(NULL), right(NULL)
+    {};
+};
+
+
+/**
+* insert a value to the tree
+*/
+Node* insert(Node*& root, int key, int value) {
+    if (!root) 
+        root = new Node(key, value);
+    else if (key < root->key)
+        root->left = insert(root->left, key, value);
+    else  // key >= root->key
+        root->right = insert(root->right, key, value);
+    return root;
+}
 
 
 /**
@@ -26,7 +49,7 @@ typedef struct node
 * - Traverse the left subtree by recursively calling the pre-order function.
 * - Traverse the right subtree by recursively calling the pre-order function.
 */
-void preOrder(node * root) {
+void preOrder(Node * root) {
     if (root == NULL)
     {
         std::cout << std::endl;
@@ -48,7 +71,7 @@ void preOrder(node * root) {
 * - Traverse the right subtree by recursively calling the post-order function.
 * - Display the value part of the root (or current node).
 */
-void postOrder(node *root) {
+void postOrder(Node *root) {
     if (root == NULL)
     {
         std::cout << std::endl;
@@ -69,7 +92,7 @@ void postOrder(node *root) {
 * - Display the value part of the root (or current node).
 * - Traverse the right subtree by recursively calling the in-order function.
 */
-void inOrder(node *root) {
+void inOrder(Node *root) {
     if (root == NULL)
     {
         std::cout << std::endl;
