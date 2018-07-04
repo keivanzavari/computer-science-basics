@@ -8,8 +8,8 @@ world_map.show()
 start = Location(0,0)
 frontier = SimpleQueue()
 frontier.put(start)
-visited = {}
-visited[start.x,start.y] = True
+came_from = {}
+came_from[start.x,start.y] = None
 
 counter = 0
 counter_max = 1
@@ -34,45 +34,33 @@ while not frontier.empty():
     # neighbors is a list of max four Location objects
     for next in neighbors:
         if counter < counter_max:
-            print 'visited length: ', len(visited)
-            print 'visited contains'
-            for loc_i in visited.keys():
+            print 'came_from length: ', len(came_from)
+            print 'came_from contains'
+            for loc_i in came_from.keys():
                 print loc_i[0] , loc_i[1]
 
-        if (next.x,next.y) not in visited:
+        if (next.x,next.y) not in came_from:
             if counter < counter_max:
                 print  BColors.OKBLUE + 'adding ', next.x, next.y , BColors.ENDC
 
             frontier.put(next)
-            visited[next.x,next.y] = True
+            came_from[next.x,next.y] = current_location
 
-    # if iteration == 100:
+    if current_location == goal:
     #     break
 
 
 
 
 # ------------------------------------------
-# print frontier
+# reconstruct path
 # ------------------------------------------
 
-
-
-print 'frontier size: ', frontier.qsize()
-print BColors.HEADER+'============================================='+\
-        BColors.ENDC
-
-if False:
-    iteration = 0
-    while not frontier.empty():
-        iteration += 1
-
-        current_location = frontier.get()
-
-        print BColors.HEADER+'----------------------------------------------'+\
-        BColors.ENDC
-        print BColors.OKGREEN+'frontier size: ', frontier.qsize(), BColors.ENDC
-        print BColors.OKBLUE+'current location: ', current_location.x, current_location.y, BColors.ENDC
-
-        if iteration == 10:
-            break
+goal = Location(3,3)
+current = goal
+path = []
+while current != start:
+   path.append(current.get())
+   current = came_from[current.x,current.y]
+path.append(start.get()) # optional
+path.reverse() # optional
