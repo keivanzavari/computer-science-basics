@@ -18,12 +18,12 @@ typedef std::map<char, HuffCode> HuffCodeMap;
 class INode
 {
 public:
-    const int f;
+    const int frequency;
 
     virtual ~INode() {}
 
 protected:
-    INode(int f) : f(f) {}
+    INode(int f) : frequency(f) {}
 };
 
 class InternalNode : public INode
@@ -50,7 +50,10 @@ public:
 
 struct NodeCmp
 {
-    bool operator()(const INode* lhs, const INode* rhs) const { return lhs->f > rhs->f; }
+    bool operator()(const INode* lhs, const INode* rhs) const
+    {
+        return lhs->frequency > rhs->frequency;
+    }
 };
 
 INode* BuildTree(const int (&frequencies)[UniqueSymbols])
@@ -64,13 +67,13 @@ INode* BuildTree(const int (&frequencies)[UniqueSymbols])
     }
     while (trees.size() > 1)
     {
-        INode* childR = trees.top();
+        INode* child_right = trees.top();
         trees.pop();
 
-        INode* childL = trees.top();
+        INode* child_left = trees.top();
         trees.pop();
 
-        INode* parent = new InternalNode(childR, childL);
+        INode* parent = new InternalNode(child_right, child_left);
         trees.push(parent);
     }
     return trees.top();
