@@ -18,12 +18,12 @@ typedef std::map<char, HuffCode> HuffCodeMap;
 class INode
 {
 public:
-    const int frequency;
+    const int weight;
 
     virtual ~INode() {}
 
 protected:
-    INode(int f) : frequency(f) {}
+    INode(int f) : weight(f) {}
 };
 
 class InternalNode : public INode
@@ -32,7 +32,10 @@ public:
     INode *const left;
     INode *const right;
 
-    InternalNode(INode* c0, INode* c1) : INode(c0->f + c1->f), left(c0), right(c1) {}
+    InternalNode(INode* c0, INode* c1) :
+    INode(c0->weight + c1->weight),
+    left(c0),
+    right(c1) {}
     ~InternalNode()
     {
         delete left;
@@ -52,7 +55,7 @@ struct NodeCmp
 {
     bool operator()(const INode* lhs, const INode* rhs) const
     {
-        return lhs->frequency > rhs->frequency;
+        return lhs->weight > rhs->weight;
     }
 };
 
@@ -99,7 +102,7 @@ void GenerateCodes(const INode* node, const HuffCode& prefix, HuffCodeMap& outCo
 
 int main()
 {
-    // Build frequency table
+    // Build weight table
     int frequencies[UniqueSymbols] = {0};
     const char* ptr = SampleString;
     while (*ptr != '\0')
