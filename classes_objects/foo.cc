@@ -1,3 +1,12 @@
+/**
+* an insight into class constructors, copy & move constructors
+* and destructor
+*
+*
+* originally started from :
+* https://gist.github.com/OTL/78b71cdae9d1894cc24303b46ba0d8c3#file-test-cpp
+*/
+
 #include <iostream>
 
 class Foo {
