@@ -10,7 +10,7 @@ import copy
 #        /     \         /   \
 #     [3]       [4]     [5]   [6]
 #    /  \      /
-# [7]   [8] [9]
+# [7]   [8] [9] ...
 
 
 class MaxHeap:
@@ -58,13 +58,9 @@ class MaxHeap:
 
     def _swap_with_child(self, idx: int, case="") -> None:
         if case == "left":
-            tmp = self.at(idx)
-            self.data[idx] = self.left(idx)
-            self.data[self.left_idx(idx)] = tmp
+            self.swap(idx, self.left_idx(idx))
         elif case == "right":
-            tmp = self.at(idx)
-            self.data[idx] = self.right(idx)
-            self.data[self.right_idx(idx)] = tmp
+            self.swap(idx, self.right_idx(idx))
 
     def max_heapify(self, idx: int) -> None:
         """
@@ -81,13 +77,14 @@ class MaxHeap:
         if (self.left_idx(idx) < self.size) and (self.right_idx(idx) < self.size):
             swap_idx = -1
             if self.left(idx) > self.right(idx):
-                swap_case = "left"
+                swap_case = "left" if self.left(idx) > self.at(idx) else ""
                 swap_idx = self.left_idx(idx)
             elif self.right(idx) > self.left(idx):
-                swap_case = "right"
+                swap_case = "right" if self.right(idx) > self.at(idx) else ""
                 swap_idx = self.right_idx(idx)
-            self._swap_with_child(idx, swap_case)
-            self.max_heapify(swap_idx)
+            if swap_case:
+                self._swap_with_child(idx, swap_case)
+                self.max_heapify(swap_idx)
 
         elif self.left_idx(idx) < self.size:
 
