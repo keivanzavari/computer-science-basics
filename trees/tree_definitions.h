@@ -1,8 +1,9 @@
 #pragma once
 
 #include <iostream>
-#include <string>  // NULL is also defined here
+#include <string>  // nullptr is also defined here
 
+namespace tree {
 /*
  * node definition
  */
@@ -20,7 +21,7 @@ struct Node {
 /**
  * insert a value to the tree
  */
-Node* insert(Node*& root, int value) {
+Node* insert(Node* root, int value) {
   if (!root)
     root = new Node(value);
   else if (value < root->value)
@@ -42,48 +43,50 @@ Node* insert(Node*& root, int value) {
  * - Traverse the right subtree by recursively calling the pre-order function.
  */
 void preOrder(Node* root) {
-  if (root == NULL) {
+  if (root == nullptr) {
     std::cout << std::endl;
     return;
   } else
     std::cout << root->value << " ";
 
-  if (root->left != NULL) preOrder(root->left);
-  if (root->right != NULL) preOrder(root->right);
+  if (root->left != nullptr) preOrder(root->left);
+  if (root->right != nullptr) preOrder(root->right);
 }
 
 /**
- * - Check if the current node is empty / null.
+ * - Check if the current node is empty / nullptr.
  * - Traverse the left subtree by recursively calling the post-order function.
  * - Traverse the right subtree by recursively calling the post-order function.
  * - Display the value part of the root (or current node).
  */
 void postOrder(Node* root) {
-  if (root == NULL) {
+  if (root == nullptr) {
     std::cout << std::endl;
     return;
   }
 
-  if (root->left != NULL) postOrder(root->left);
-  if (root->right != NULL) postOrder(root->right);
+  if (root->left != nullptr) postOrder(root->left);
+  if (root->right != nullptr) postOrder(root->right);
   std::cout << root->value << " ";
 }
 
 /**
- * - Check if the current node is empty / null.
+ * - Check if the current node is empty / nullptr.
  * - Traverse the left subtree by recursively calling the in-order function.
  * - Display the value part of the root (or current node).
  * - Traverse the right subtree by recursively calling the in-order function.
  */
 void inOrder(Node* root) {
-  if (root == NULL) {
+  if (root == nullptr) {
     std::cout << std::endl;
     return;
   }
 
-  if (root->left != NULL) inOrder(root->left);
+  if (root->left != nullptr) inOrder(root->left);
 
   std::cout << root->value << " ";
 
-  if (root->right != NULL) inOrder(root->right);
+  if (root->right != nullptr) inOrder(root->right);
 }
+
+}  // namespace tree
