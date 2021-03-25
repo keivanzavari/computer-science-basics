@@ -7,27 +7,26 @@
  * node definition
  */
 struct Node {
-  int key;
   int value;
   int height;
   Node* left;
   Node* right;
 
-  Node() : height(-1), value(0), key(0), left(NULL), right(NULL){};
+  Node() : height(-1), value(0), left(nullptr), right(nullptr){};
 
-  Node(int k, int v) : height(0), value(v), key(k), left(NULL), right(NULL){};
+  Node(int v) : height(0), value(v), left(nullptr), right(nullptr){};
 };
 
 /**
  * insert a value to the tree
  */
-Node* insert(Node*& root, int key, int value) {
+Node* insert(Node*& root, int value) {
   if (!root)
-    root = new Node(key, value);
-  else if (key < root->key)
-    root->left = insert(root->left, key, value);
+    root = new Node(value);
+  else if (value < root->value)
+    root->left = insert(root->left, value);
   else  // key >= root->key
-    root->right = insert(root->right, key, value);
+    root->right = insert(root->right, value);
   return root;
 }
 
