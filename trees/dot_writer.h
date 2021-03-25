@@ -6,6 +6,7 @@
 
 #include "tree_definitions.h"
 
+namespace tree {
 void convertFromGraph(std::ostream& os, const std::vector<int>& nodes, const std::vector<std::pair<int, int>>& edges) {
   const std::string START = "digraph G {\n";
   std::string nodes_txt = "";
@@ -53,7 +54,7 @@ void runBfs(Node* node, std::vector<int>& nodes, std::vector<std::pair<int, int>
 
 void exportDot(std::ostream& os, Node* node) {
   if (!node) {
-    os << "Pointer invalid";
+    os << "Pointer invalid.\n";
     return;
   }
 
@@ -72,3 +73,4 @@ void exportDot(std::ostream& os, Node* node) {
 //   0->2;
 //   2->3;
 // }
+}  // namespace tree
