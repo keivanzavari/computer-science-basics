@@ -33,7 +33,6 @@ void runBfs(Node* node, std::vector<int>& nodes, std::vector<std::pair<int, int>
     // visit(node_to_inspect);
     {
       nodes.push_back(node_to_inspect->value);
-      // the children that will come up next will get counter +1 and counter+2
 
       if (node_to_inspect->left) {
         edges.push_back({node_to_inspect->value, node_to_inspect->left->value});

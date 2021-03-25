@@ -32,6 +32,29 @@ Node* insert(Node* root, int value) {
 }
 
 /**
+ *       y                                 x
+ *     /  \     Right Rotation           /   \
+ *    x    T3   - - - - - - - ->        T1    y
+ *  /  \       <- - - - - - - -             /  \
+ * T1  T2     Left Rotation              T2    T3
+ */
+void leftRotate(Node* x) {
+  Node* y = x->right;
+  Node* t2 = y->left;
+
+  y->left = x;
+  x->right = t2;
+}
+
+void rightRotate(Node* y) {
+  Node* x = y->left;
+  Node* t2 = x->right;
+
+  x->right = y;
+  y->left = t2;
+}
+
+/**
  * See https://en.wikipedia.org/wiki/Tree_traversal
  * for more info
  */
