@@ -31,9 +31,9 @@ Node<T>* insert(Node<T>* root, T value) {
 /**
  *       y                                 x
  *     /  \     Right Rotation           /   \
- *    x    T3   - - - - - - - ->        T1    y
+ *    x    C   - - - - - - - ->        A      y
  *  /  \       <- - - - - - - -             /  \
- * T1  T2     Left Rotation              T2    T3
+ * A   B     Left Rotation                 B    C
  */
 template <typename T>
 Node<T>* rightRotate(Node<T>* y) {
