@@ -4,24 +4,21 @@
 #include <string>  // nullptr is also defined here
 
 namespace tree {
-/*
- * node definition
- */
+
+template <typename T>
 struct Node {
-  int value;
+  T value;
   int height;
   Node* left;
   Node* right;
 
   Node() : height(-1), value(0), left(nullptr), right(nullptr){};
 
-  Node(int v) : height(0), value(v), left(nullptr), right(nullptr){};
+  Node(T v) : height(0), value(v), left(nullptr), right(nullptr){};
 };
 
-/**
- * insert a value to the tree
- */
-Node* insert(Node* root, int value) {
+template <typename T>
+Node<T>* insert(Node<T>* root, T value) {
   if (!root)
     root = new Node(value);
   else if (value < root->value)
@@ -38,8 +35,8 @@ Node* insert(Node* root, int value) {
  *  /  \       <- - - - - - - -             /  \
  * T1  T2     Left Rotation              T2    T3
  */
-
-Node* rightRotate(Node* y) {
+template <typename T>
+Node<T>* rightRotate(Node<T>* y) {
   // x is the pivot here.
   Node* pivot = y->left;
   y->left = pivot->right;
@@ -48,8 +45,9 @@ Node* rightRotate(Node* y) {
   return pivot;
 }
 
-Node* leftRotate(Node* x) {
-  Node* pivot = x->right;
+template <typename T>
+Node<T>* leftRotate(Node<T>* x) {
+  auto pivot = x->right;
   x->right = pivot->left;
 
   pivot->left = x;
@@ -67,7 +65,8 @@ Node* leftRotate(Node* x) {
  * - Traverse the left subtree by recursively calling the pre-order function.
  * - Traverse the right subtree by recursively calling the pre-order function.
  */
-void preOrder(Node* root) {
+template <typename T>
+void preOrder(Node<T>* root) {
   if (root == nullptr) {
     std::cout << std::endl;
     return;
@@ -84,7 +83,8 @@ void preOrder(Node* root) {
  * - Traverse the right subtree by recursively calling the post-order function.
  * - Display the value part of the root (or current node).
  */
-void postOrder(Node* root) {
+template <typename T>
+void postOrder(Node<T>* root) {
   if (root == nullptr) {
     std::cout << std::endl;
     return;
@@ -101,7 +101,8 @@ void postOrder(Node* root) {
  * - Display the value part of the root (or current node).
  * - Traverse the right subtree by recursively calling the in-order function.
  */
-void inOrder(Node* root) {
+template <typename T>
+void inOrder(Node<T>* root) {
   if (root == nullptr) {
     std::cout << std::endl;
     return;
