@@ -19,12 +19,13 @@ struct Node {
 
 template <typename T>
 Node<T>* insert(Node<T>* root, T value) {
-  if (!root)
+  if (!root) {
     root = new Node(value);
-  else if (value < root->value)
+  } else if (value < root->value) {
     root->left = insert(root->left, value);
-  else  // key >= root->key
+  } else {  // key >= root->key
     root->right = insert(root->right, value);
+  }
   return root;
 }
 
