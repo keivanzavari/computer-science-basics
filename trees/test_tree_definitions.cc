@@ -56,10 +56,20 @@ void testLeftRotation() {
 
   delete x;
 }
+
+void testInsert() {
+  Node<int>* root = nullptr;
+  Node<int>* x = insert(root, 80);
+  for (const auto value : {81, 70, 90, 85, 120, 105, 130, 110}) {
+    x = insert(x, value);
+  }
+  std::cout << "root height: " << x->height << "\n";
+}
 }  // namespace bst
 
 int main() {
-  bst::testRightRotation();
-  bst::testLeftRotation();
+  bst::testInsert();
+  // bst::testRightRotation();
+  // bst::testLeftRotation();
   return 0;
 }
