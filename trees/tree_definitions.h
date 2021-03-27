@@ -124,6 +124,22 @@ Node<T>* balanceRightLeft(Node<T>* root) {
   return pivot;
 }
 
+/*
+ *
+ *            x                                            z
+ *          /   \                                       /    \
+ *         z     D     right rotation around z        y        x
+ *       /  \          - - - - - - - - - - ->       /   \    /   \
+ *      y    C                                     A    B   C     D
+ *    /  \
+ *   A    B
+ *
+ * in order traversal still gives: AyBzCxD
+ **/
+template <typename T>
+Node<T>* balanceLeftLeft(Node<T>* root) {
+  return rightRotate(root);
+}
 /**
  * See https://en.wikipedia.org/wiki/Tree_traversal
  * for more info
