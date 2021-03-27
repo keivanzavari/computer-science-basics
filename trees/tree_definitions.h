@@ -12,8 +12,7 @@ struct Node {
   Node* left;
   Node* right;
 
-  Node() : height(-1), value(0), left(nullptr), right(nullptr){};
-
+  Node() = delete;
   Node(T v) : height(0), value(v), left(nullptr), right(nullptr){};
 };
 
