@@ -45,14 +45,15 @@ class Avl {
       }
     }
   }
-  int getBalance(Node<T>* node) {
+
+  int getBalance(bst::Node<T>* node) {
     if (!node) {
       return 0;
     }
     return bst::getHeight(node->left) - bst::getHeight(node->right);
   }
 
-  Node<T>* root;
+  bst::Node<T>* root;
 };
 
 }  // namespace tree
