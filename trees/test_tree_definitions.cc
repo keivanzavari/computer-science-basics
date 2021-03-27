@@ -11,23 +11,18 @@ void testRightRotation() {
    *  /  \       <- - - - - - - -             /  \
    * T1  T2     Left Rotation              T2    T3
    */
-  auto t1 = tree::Node<int>(70);
-  auto x = tree::Node<int>(80);
-  auto t2 = tree::Node<int>(90);
   tree::Node<int>* root = nullptr;
   tree::Node<int>* y = tree::insert(root, 100);
-  auto t3 = tree::Node<int>(110);
+  for (const auto value : {70, 90, 65, 110}) {
+    y = tree::insert(y, value);
+  }
+  std::cout << "root height: " << y->height << "\n";
 
-  y->left = &x;
-  y->right = &t3;
-  x.left = &t1;
-  x.right = &t2;
-
-  std::ofstream before("before_rotation.dot");
+  std::ofstream before("right_rotation_before.dot");
   int before_counter = tree::exportDot(before, y);
 
   root = tree::rightRotate(y);
-  std::ofstream after("after_rotation.dot");
+  std::ofstream after("right_rotation_after.dot");
   int after_counter = tree::exportDot(after, root);
 
   std::cout << "number of nodes before: " << before_counter << ", after: " << after_counter << "\n";
@@ -44,22 +39,17 @@ void testLeftRotation() {
    * T1  T2     Left Rotation              T2    T3
    */
   tree::Node<int>* root = nullptr;
-  auto t1 = tree::Node<int>(70);
   tree::Node<int>* x = tree::insert(root, 80);
-  auto t2 = tree::Node<int>(90);
-  auto y = tree::Node<int>(100);
-  auto t3 = tree::Node<int>(110);
+  for (const auto value : {70, 90, 85, 110}) {
+    x = tree::insert(x, value);
+  }
 
-  x->left = &t1;
-  x->right = &y;
-  y.left = &t2;
-  y.right = &t3;
-
-  std::ofstream before("before_rotation.dot");
+  std::cout << "root height: " << x->height << "\n";
+  std::ofstream before("left_rotation_before.dot");
   int before_counter = tree::exportDot(before, x);
 
   root = tree::leftRotate(x);
-  std::ofstream after("after_rotation.dot");
+  std::ofstream after("left_rotation_after.dot");
   int after_counter = tree::exportDot(after, root);
 
   std::cout << "number of nodes before: " << before_counter << ", after: " << after_counter << "\n";
@@ -68,6 +58,7 @@ void testLeftRotation() {
 }
 
 int main() {
+  testRightRotation();
   testLeftRotation();
   return 0;
 }
