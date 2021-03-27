@@ -13,7 +13,12 @@ class Avl {
   }
 
  private:
-  int getBalance(Node<T>* node) { return 0; }
+  int getBalance(Node<T>* node) {
+    if (!node) {
+      return 0;
+    }
+    return bst::getHeight(node->left) - bst::getHeight(node->right);
+  }
 
   Node<T>* root;
 };
