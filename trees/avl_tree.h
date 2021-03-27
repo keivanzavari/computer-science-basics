@@ -2,10 +2,10 @@
 
 #include "tree_definitions.h"
 
-namespace tree {
+namespace avl {
 
 template <typename T>
-class Avl {
+class Tree {
  public:
   void insert(const T& value) {
     root = bst::insert(root, value);
@@ -58,4 +58,4 @@ class Avl {
   bst::Node<T>* root;
 };
 
-}  // namespace tree
+}  // namespace avl
