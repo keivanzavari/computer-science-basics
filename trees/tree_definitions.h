@@ -140,6 +140,23 @@ template <typename T>
 Node<T>* balanceLeftLeft(Node<T>* root) {
   return rightRotate(root);
 }
+
+/*
+ *     x                                              z
+ *   /   \                                         /    \
+ *  A     z     left rotation around z           x        y
+ *      /  \    - - - - - - - - - - ->         /   \    /   \
+ *     B    y                                 A    B   C     D
+ *        /  \
+ *       C    D
+ *
+ * in order traversal still gives: AxBzCyD
+ **/
+template <typename T>
+Node<T>* balanceRightRight(Node<T>* root) {
+  return leftRotate(root);
+}
+
 /**
  * See https://en.wikipedia.org/wiki/Tree_traversal
  * for more info
