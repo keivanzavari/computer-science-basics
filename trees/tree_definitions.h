@@ -22,8 +22,7 @@ int getHeight(Node<T>* node) {
   if (node) {
     return node->height;
   }
-
-  throw "Unintialized Node.";
+  return -1;
 }
 
 template <typename T>
