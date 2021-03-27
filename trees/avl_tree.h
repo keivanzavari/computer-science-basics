@@ -20,7 +20,7 @@ class Tree {
     int balance_factor = getBalance(root);
     if (balance_factor == 0 || balance_factor == 1 || balance_factor == -1) {
       // these are all good cases we don't need to do anything else.
-      std::cout << "good case, balance didn't break.\n";
+      // std::cout << "good case, balance didn't break.\n";
       return;
     }
 
