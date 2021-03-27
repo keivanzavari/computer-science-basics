@@ -55,6 +55,40 @@ Node<T>* leftRotate(Node<T>* x) {
 }
 
 /**
+ * With z being pivot:
+ *       y                                              y
+ *     /  \                                          /   \
+ *    x    D      left rotation around z            z     D
+ *  /  \          - - - - - - - - - - ->          /  \
+ * A    z                                        x    C
+ *    /  \                                     /  \
+ *   B    C                                   A    B
+ *
+ * and then
+ *
+ *            y                                            z
+ *          /   \                                       /    \
+ *         z     D     right rotation around z        x        y
+ *       /  \          - - - - - - - - - - ->       /   \    /   \
+ *      x    C                                     A    B   C     D
+ *    /  \
+ *   A    B
+ *
+ **/
+template <typename T>
+Node<T>* rotateLeftRight(Node<T>* root) {
+  auto x = root->left;
+  auto pivot = x->right;
+
+  x->right = pivot->left;
+  root->left = pivot->right;
+
+  pivot->right = root;
+  pivot->left = x;
+  return pivot;
+}
+
+/**
  * See https://en.wikipedia.org/wiki/Tree_traversal
  * for more info
  */
