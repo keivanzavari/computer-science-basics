@@ -74,6 +74,7 @@ Node<T>* leftRotate(Node<T>* x) {
  *    /  \
  *   A    B
  *
+ * in order traversal still gives: AyBzCxD
  **/
 template <typename T>
 Node<T>* rotateLeftRight(Node<T>* root) {
