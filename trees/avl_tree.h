@@ -9,7 +9,7 @@ class Avl {
  public:
   void insert(const T& value) {
     root = bst::insert(root, value);
-    int balance_factor = getBalance(root);
+    balanceTree();
   }
 
  private:
