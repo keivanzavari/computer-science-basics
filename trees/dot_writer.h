@@ -21,7 +21,7 @@ void convertFromGraph(std::ostream& os, const std::vector<int>& nodes, const std
   os << "}\n";
 }
 
-void runBfs(Node* node, std::vector<int>& nodes, std::vector<std::pair<int, int>>& edges) {
+int runBfs(Node* node, std::vector<int>& nodes, std::vector<std::pair<int, int>>& edges) {
   std::queue<Node*> queue;
 
   int counter = 0;
@@ -49,18 +49,21 @@ void runBfs(Node* node, std::vector<int>& nodes, std::vector<std::pair<int, int>
       queue.push(node_to_inspect->right);
     }
   }
+
+  return counter;
 }
 
-void exportDot(std::ostream& os, Node* node) {
+int exportDot(std::ostream& os, Node* node) {
   if (!node) {
     os << "Pointer invalid.\n";
-    return;
+    return -1;
   }
 
   std::vector<int> nodes;
   std::vector<std::pair<int, int>> edges;
-  runBfs(node, nodes, edges);
+  int num_nodes = runBfs(node, nodes, edges);
   convertFromGraph(os, nodes, edges);
+  return num_nodes;
 }
 
 // digraph G {
