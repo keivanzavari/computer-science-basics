@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <iostream>
 #include <string>  // nullptr is also defined here
 
@@ -34,6 +35,7 @@ Node<T>* insert(Node<T>* root, T value) {
     // value >= root->value
     root->right = insert(root->right, value);
   }
+  root->height = 1 + std::max(getHeight(root->left), getHeight(root->right));
   return root;
 }
 
