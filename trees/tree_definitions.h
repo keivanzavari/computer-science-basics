@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>  // nullptr is also defined here
 
-namespace tree {
+namespace bst {
 
 template <typename T>
 struct Node {
@@ -229,4 +229,4 @@ void inOrder(Node<T>* root) {
   if (root->right != nullptr) inOrder(root->right);
 }
 
-}  // namespace tree
+}  // namespace bst
