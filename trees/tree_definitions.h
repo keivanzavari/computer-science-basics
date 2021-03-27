@@ -38,20 +38,22 @@ Node* insert(Node* root, int value) {
  *  /  \       <- - - - - - - -             /  \
  * T1  T2     Left Rotation              T2    T3
  */
-void leftRotate(Node* x) {
-  Node* y = x->right;
-  Node* t2 = y->left;
 
-  y->left = x;
-  x->right = t2;
+Node* rightRotate(Node* y) {
+  // x is the pivot here.
+  Node* pivot = y->left;
+  y->left = pivot->right;
+  pivot->right = y;
+
+  return pivot;
 }
 
-void rightRotate(Node* y) {
-  Node* x = y->left;
-  Node* t2 = x->right;
+Node* leftRotate(Node* x) {
+  Node* pivot = x->right;
+  x->right = pivot->left;
 
-  x->right = y;
-  y->left = t2;
+  pivot->left = x;
+  return pivot;
 }
 
 /**
