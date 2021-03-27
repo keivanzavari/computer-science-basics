@@ -7,7 +7,8 @@ namespace avl {
 template <typename T>
 class Tree {
  public:
-  void insert(const T& value) {
+  Tree() : root(nullptr) {}
+  void insert(const T value) {
     root = bst::insert(root, value);
     balanceTree();
   }
