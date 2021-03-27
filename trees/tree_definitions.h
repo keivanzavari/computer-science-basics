@@ -77,7 +77,7 @@ Node<T>* leftRotate(Node<T>* x) {
  * in order traversal still gives: AyBzCxD
  **/
 template <typename T>
-Node<T>* rotateLeftRight(Node<T>* root) {
+Node<T>* balanceLeftRight(Node<T>* root) {
   auto y = root->left;
   auto pivot = y->right;
 
@@ -112,7 +112,7 @@ Node<T>* rotateLeftRight(Node<T>* root) {
  * in order traversal still gives: AxBzCyD
  **/
 template <typename T>
-Node<T>* rotateRightLeft(Node<T>* root) {
+Node<T>* balanceRightLeft(Node<T>* root) {
   auto y = root->right;
   auto pivot = y->left;
 
