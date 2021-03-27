@@ -11,12 +11,12 @@ void testRightRotation() {
    *  /  \       <- - - - - - - -             /  \
    * T1  T2     Left Rotation              T2    T3
    */
+  auto t1 = tree::Node<int>(70);
+  auto x = tree::Node<int>(80);
+  auto t2 = tree::Node<int>(90);
   tree::Node<int>* root = nullptr;
-  auto t1 = tree::Node(70);
-  auto x = tree::Node(80);
-  auto t2 = tree::Node(90);
   tree::Node<int>* y = tree::insert(root, 100);
-  auto t3 = tree::Node(110);
+  auto t3 = tree::Node<int>(110);
 
   y->left = &x;
   y->right = &t3;
@@ -44,11 +44,11 @@ void testLeftRotation() {
    * T1  T2     Left Rotation              T2    T3
    */
   tree::Node<int>* root = nullptr;
-  auto t1 = tree::Node(70);
+  auto t1 = tree::Node<int>(70);
   tree::Node<int>* x = tree::insert(root, 80);
-  auto t2 = tree::Node(90);
-  auto y = tree::Node(100);
-  auto t3 = tree::Node(110);
+  auto t2 = tree::Node<int>(90);
+  auto y = tree::Node<int>(100);
+  auto t3 = tree::Node<int>(110);
 
   x->left = &t1;
   x->right = &y;
