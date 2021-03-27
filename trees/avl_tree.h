@@ -12,6 +12,8 @@ class Avl {
     balanceTree();
   }
 
+  bst::Node<T>* get() { return root; }
+
  private:
   void balanceTree() {
     int balance_factor = getBalance(root);
