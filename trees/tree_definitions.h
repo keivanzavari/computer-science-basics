@@ -27,7 +27,7 @@ int getHeight(Node<T>* node) {
 template <typename T>
 Node<T>* insert(Node<T>* root, T value) {
   if (!root) {
-    root = new Node(value);
+    root = new Node<T>(value);
   } else if (value < root->value) {
     root->left = insert(root->left, value);
   } else {
@@ -47,7 +47,7 @@ Node<T>* insert(Node<T>* root, T value) {
 template <typename T>
 Node<T>* rightRotate(Node<T>* y) {
   // x is the pivot here.
-  Node* pivot = y->left;
+  auto pivot = y->left;
   y->left = pivot->right;
   pivot->right = y;
 
