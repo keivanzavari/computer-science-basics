@@ -5,7 +5,7 @@
 #include "tree_definitions.h"
 
 int main() {
-  tree::Node* root = nullptr;
+  tree::Node<int>* root = nullptr;
   root = tree::insert(root, 100);
   for (int i = 0; i < 10; ++i) {
     tree::insert(root, i);
