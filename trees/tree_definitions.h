@@ -56,16 +56,37 @@ Node<T>* leftRotate(Node<T>* x) {
 
 /**
  * With z being pivot:
- *       y                                              y
+ *       x                                              x
  *     /  \                                          /   \
- *    x    D      left rotation around z            z     D
+ *    y    D      left rotation around z            z     D
  *  /  \          - - - - - - - - - - ->          /  \
- * A    z                                        x    C
+ * A    z                                        y    C
  *    /  \                                     /  \
  *   B    C                                   A    B
  *
  * and then
  *
+ *            x                                            z
+ *          /   \                                       /    \
+ *         z     D     right rotation around z        y        x
+ *       /  \          - - - - - - - - - - ->       /   \    /   \
+ *      y    C                                     A    B   C     D
+ *    /  \
+ *   A    B
+ *
+ **/
+template <typename T>
+Node<T>* rotateLeftRight(Node<T>* root) {
+  auto y = root->left;
+  auto pivot = y->right;
+
+  y->right = pivot->left;
+  root->left = pivot->right;
+
+  pivot->right = root;
+  pivot->left = y;
+  return pivot;
+}
  *            y                                            z
  *          /   \                                       /    \
  *         z     D     right rotation around z        x        y
