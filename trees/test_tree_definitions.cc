@@ -2,7 +2,7 @@
 
 #include "dot_writer.h"
 #include "tree_definitions.h"
-
+namespace bst {
 void testRightRotation() {
   /**
    *       y                                 x
@@ -11,19 +11,19 @@ void testRightRotation() {
    *  /  \       <- - - - - - - -             /  \
    * T1  T2     Left Rotation              T2    T3
    */
-  tree::Node<int>* root = nullptr;
-  tree::Node<int>* y = tree::insert(root, 100);
+  Node<int>* root = nullptr;
+  Node<int>* y = insert(root, 100);
   for (const auto value : {70, 90, 65, 110}) {
-    y = tree::insert(y, value);
+    y = insert(y, value);
   }
   std::cout << "root height: " << y->height << "\n";
 
   std::ofstream before("right_rotation_before.dot");
-  int before_counter = tree::exportDot(before, y);
+  int before_counter = exportDot(before, y);
 
-  root = tree::rightRotate(y);
+  root = rightRotate(y);
   std::ofstream after("right_rotation_after.dot");
-  int after_counter = tree::exportDot(after, root);
+  int after_counter = exportDot(after, root);
 
   std::cout << "number of nodes before: " << before_counter << ", after: " << after_counter << "\n";
 
@@ -38,27 +38,28 @@ void testLeftRotation() {
    *  /  \       <- - - - - - - -             /  \
    * T1  T2     Left Rotation              T2    T3
    */
-  tree::Node<int>* root = nullptr;
-  tree::Node<int>* x = tree::insert(root, 80);
+  Node<int>* root = nullptr;
+  Node<int>* x = insert(root, 80);
   for (const auto value : {70, 90, 85, 110}) {
-    x = tree::insert(x, value);
+    x = insert(x, value);
   }
 
   std::cout << "root height: " << x->height << "\n";
   std::ofstream before("left_rotation_before.dot");
-  int before_counter = tree::exportDot(before, x);
+  int before_counter = exportDot(before, x);
 
-  root = tree::leftRotate(x);
+  root = leftRotate(x);
   std::ofstream after("left_rotation_after.dot");
-  int after_counter = tree::exportDot(after, root);
+  int after_counter = exportDot(after, root);
 
   std::cout << "number of nodes before: " << before_counter << ", after: " << after_counter << "\n";
 
   delete x;
 }
+}  // namespace bst
 
 int main() {
-  testRightRotation();
-  testLeftRotation();
+  bst::testRightRotation();
+  bst::testLeftRotation();
   return 0;
 }
