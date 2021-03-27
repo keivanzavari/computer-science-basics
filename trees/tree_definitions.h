@@ -88,25 +88,39 @@ Node<T>* rotateLeftRight(Node<T>* root) {
   pivot->left = y;
   return pivot;
 }
- *            y                                            z
- *          /   \                                       /    \
- *         z     D     right rotation around z        x        y
- *       /  \          - - - - - - - - - - ->       /   \    /   \
- *      x    C                                     A    B   C     D
- *    /  \
- *   A    B
+
+/**
+ * With z being pivot:
+ *       x                                              x
+ *     /  \                                           /   \
+ *    A    y      right rotation around z            A     z
+ *       /  \     - - - - - - - - - - ->                 /  \
+ *      z    D                                          B    y
+ *    /  \                                                 /  \
+ *   B    C                                               C    D
  *
+ * and then
+ *
+ *     x                                              z
+ *   /   \                                         /    \
+ *  A     z     left rotation around z           x        y
+ *      /  \          - - - - - - - - - - ->   /   \    /   \
+ *     B    y                                 A    B   C     D
+ *        /  \
+ *       C    D
+ *
+ * in order traversal still gives: AxBzCyD
  **/
 template <typename T>
-Node<T>* rotateLeftRight(Node<T>* root) {
-  auto x = root->left;
-  auto pivot = x->right;
+Node<T>* rotateRightLeft(Node<T>* root) {
+  auto y = root->right;
+  auto pivot = y->left;
 
-  x->right = pivot->left;
-  root->left = pivot->right;
+  y->left = pivot->right;
+  root->right = pivot->left;
 
-  pivot->right = root;
-  pivot->left = x;
+  pivot->left = root;
+  pivot->right = y;
   return pivot;
 }
 
