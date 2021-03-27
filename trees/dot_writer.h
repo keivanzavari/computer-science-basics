@@ -6,7 +6,7 @@
 
 #include "tree_definitions.h"
 
-namespace tree {
+namespace bst {
 void convertFromGraph(std::ostream& os, const std::vector<int>& nodes, const std::vector<std::pair<int, int>>& edges) {
   const std::string START = "digraph G {\n";
   std::string nodes_txt = "";
@@ -79,4 +79,4 @@ int exportDot(std::ostream& os, Node<int>* node) {
   return num_nodes;
 }
 
-}  // namespace tree
+}  // namespace bst
