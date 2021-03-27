@@ -21,8 +21,8 @@ void convertFromGraph(std::ostream& os, const std::vector<int>& nodes, const std
   os << "}\n";
 }
 
-int runBfs(Node* node, std::vector<int>& nodes, std::vector<std::pair<int, int>>& edges) {
-  std::queue<Node*> queue;
+int runBfs(Node<int>* node, std::vector<int>& nodes, std::vector<std::pair<int, int>>& edges) {
+  std::queue<Node<int>*> queue;
 
   int counter = 0;
 
@@ -53,7 +53,20 @@ int runBfs(Node* node, std::vector<int>& nodes, std::vector<std::pair<int, int>>
   return counter;
 }
 
-int exportDot(std::ostream& os, Node* node) {
+/**
+ * @brief This is how the definition of simple graph in dot syntax looks like:
+ *
+ * digraph G {
+ *   0 [label = "dax"];
+ *   1 [label = "yow"];
+ *   2 [label = "boz"];
+ *   3 [label = "zow"];
+ *   0->1;
+ *   0->2;
+ *   2->3;
+ * }
+ */
+int exportDot(std::ostream& os, Node<int>* node) {
   if (!node) {
     os << "Pointer invalid.\n";
     return -1;
@@ -66,13 +79,4 @@ int exportDot(std::ostream& os, Node* node) {
   return num_nodes;
 }
 
-// digraph G {
-//   0 [label = "dax"];
-//   1 [label = "yow"];
-//   2 [label = "boz"];
-//   3 [label = "zow"];
-//   0->1;
-//   0->2;
-//   2->3;
-// }
 }  // namespace tree
