@@ -52,6 +52,15 @@ Node<T>* findMin(Node<T>* node) {
 }
 
 template <typename T>
+Node<T>* findMax(Node<T>* node) {
+  if (!node || !node->right) {
+    return node;
+  }
+
+  return findMax(node->right);
+}
+
+template <typename T>
 Node<T>* delete_node(Node<T>* node) {
   if (node) {
     Node<T>* res = nullptr;
