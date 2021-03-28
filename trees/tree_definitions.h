@@ -110,7 +110,7 @@ Node<T>* delete_node(Node<T>* parent, Direction direction) {
     if (!child) {
       return parent;
     }
-    
+
     if (!child->left && !child->right) {
       return delete_child(parent, direction);
     } else if (child->left && !child->right) {
@@ -118,10 +118,9 @@ Node<T>* delete_node(Node<T>* parent, Direction direction) {
     } else if (!child->left && child->right) {
       return replace_child(parent, child->right, direction);
     } else {
-      // When node has both left and right children.
-      // find predecessor or successor and replace the node with that one. For the former, we need to find max, and for
-      // the latter we need to find min.
-      // Here we find successor.
+      // When the to-be-deleted node has both left and right children.
+      // Find predecessor or successor and replace the node with that one. Here we find successor.
+      auto succ = findSuccessor(child);
     }
     res = correctHeight(res);
   }
