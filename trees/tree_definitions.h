@@ -79,16 +79,25 @@ Node<T>* findPredecessor(Node<T>* node) {
 }
 
 template <typename T>
-Node<T>* delete_node(Node<T>* node) {
-  if (node) {
-    Node<T>* res = nullptr;
-    if (!node->left && !node->right) {
-      return res;
-    } else if (node->left && !node->right) {
-      res = node->left;
-      return res;
-    } else if (!node->left && node->right) {
-      res = node->right;
+Node<T>* delete_child(Node<T>* parent, Direction direction) {
+  if (direction == Direction::LEFT) {
+    parent->left = nullptr;
+  } else {
+    parent->right = nullptr;
+  }
+  return parent;
+}
+
+template <typename T>
+Node<T>* replace_child(Node<T>* parent, Node<T>* new_node, Direction direction) {
+  if (direction == Direction::LEFT) {
+    parent->left = new_node;
+  } else {
+    parent->right = new_node;
+  }
+  return parent;
+}
+
       return res;
     } else {
       // When node has both left and right children.
