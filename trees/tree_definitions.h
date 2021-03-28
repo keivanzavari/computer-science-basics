@@ -44,18 +44,20 @@ Node<T>* correctHeight(Node<T>* root) {}
 
 template <typename T>
 Node<T>* findMin(Node<T>* node) {
-  if (!node || !node->left) {
-    return node;
+  auto x = node;
+  while (x && x->left) {
+    x = x->left;
   }
-  return findMin(node->left);
+  return x;
 }
 
 template <typename T>
 Node<T>* findMax(Node<T>* node) {
-  if (!node || !node->right) {
-    return node;
+  auto x = node;
+  while (x && x->right) {
+    x = x->right;
   }
-  return findMax(node->right);
+  return x;
 }
 
 template <typename T>
