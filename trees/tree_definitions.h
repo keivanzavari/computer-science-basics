@@ -107,6 +107,10 @@ Node<T>* delete_node(Node<T>* parent, Direction direction) {
     } else {
       child = parent->right;
     }
+    if (!child) {
+      return parent;
+    }
+    
     if (!child->left && !child->right) {
       return delete_child(parent, direction);
     } else if (child->left && !child->right) {
