@@ -6,6 +6,8 @@
 
 namespace bst {
 
+enum class Direction { LEFT, RIGHT };
+
 template <typename T>
 struct Node {
   T value;
