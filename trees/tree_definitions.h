@@ -47,7 +47,6 @@ Node<T>* findMin(Node<T>* node) {
   if (!node || !node->left) {
     return node;
   }
-
   return findMin(node->left);
 }
 
@@ -56,7 +55,6 @@ Node<T>* findMax(Node<T>* node) {
   if (!node || !node->right) {
     return node;
   }
-
   return findMax(node->right);
 }
 
