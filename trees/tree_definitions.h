@@ -39,6 +39,31 @@ Node<T>* insert(Node<T>* root, T value) {
   return root;
 }
 
+template <typename T>
+Node<T>* correctHeight(Node<T>* root) {}
+
+template <typename T>
+Node<T>* delete_node(Node<T>* node) {
+  if (node) {
+    Node<T>* res = nullptr;
+    if (!node->left && !node->right) {
+      return res;
+    } else if (node->left && !node->right) {
+      res = node->left;
+      return res;
+    } else if (!node->left && node->right) {
+      res = node->right;
+      return res;
+    } else {
+      // When node has both left and right children.
+      // find predecessor or successor and replace the node with that one. For the former, we need to find max, and for
+      // the latter we need to find min.
+    }
+    res = correctHeight(res);
+  }
+  return nullptr;
+}
+
 /**
  *       y                                 x
  *     /  \     Right Rotation           /   \
