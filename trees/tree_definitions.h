@@ -63,7 +63,7 @@ Node<T>* findSuccessor(Node<T>* node) {
   if (!node) {
     return node;
   }
-  return findMin(node->right)
+  return findMin(node->right);
 }
 
 template <typename T>
@@ -71,7 +71,7 @@ Node<T>* findPredecessor(Node<T>* node) {
   if (!node) {
     return node;
   }
-  return findMax(node->left)
+  return findMax(node->left);
 }
 
 template <typename T>
