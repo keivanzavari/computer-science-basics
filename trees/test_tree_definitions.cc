@@ -65,10 +65,23 @@ void testInsert() {
   }
   std::cout << "root height: " << x->height << "\n";
 }
+
+void testFindMin() {
+  Node<int>* root = nullptr;
+  Node<int>* x = insert(root, 80);
+  for (const auto value : {81, 70, 90, 85, 50, 105, 130, 110}) {
+    x = insert(x, value);
+  }
+  std::cout << "root height: " << x->height << "\n";
+  auto min_node = findMin(x);
+  std::cout << "min value: " << min_node->value << "\n";
+}
+
 }  // namespace bst
 
 int main() {
-  bst::testInsert();
+  bst::testFindMin();
+  // bst::testInsert();
   // bst::testRightRotation();
   // bst::testLeftRotation();
   return 0;
