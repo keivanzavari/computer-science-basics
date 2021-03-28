@@ -98,11 +98,28 @@ Node<T>* replace_child(Node<T>* parent, Node<T>* new_node, Direction direction) 
   return parent;
 }
 
+template <typename T>
+Node<T>* delete_node(Node<T>* parent, Direction direction) {
+  if (parent) {
+    Node<T>* child = nullptr;
+    if (direction == Direction::LEFT) {
+      child = parent->left;
+    } else {
+      child = parent->right;
+    }
+    if (!child->left && !child->right) {
+      return delete_child(parent, direction);
+    } else if (child->left && !child->right) {
+      return replace_child(parent, child->left, direction);
+
+    } else if (!parent->left && parent->right) {
+      res = parent->right;
       return res;
     } else {
       // When node has both left and right children.
       // find predecessor or successor and replace the node with that one. For the former, we need to find max, and for
       // the latter we need to find min.
+      // Here we find successor.
     }
     res = correctHeight(res);
   }
