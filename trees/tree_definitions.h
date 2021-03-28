@@ -111,10 +111,8 @@ Node<T>* delete_node(Node<T>* parent, Direction direction) {
       return delete_child(parent, direction);
     } else if (child->left && !child->right) {
       return replace_child(parent, child->left, direction);
-
-    } else if (!parent->left && parent->right) {
-      res = parent->right;
-      return res;
+    } else if (!child->left && child->right) {
+      return replace_child(parent, child->right, direction);
     } else {
       // When node has both left and right children.
       // find predecessor or successor and replace the node with that one. For the former, we need to find max, and for
