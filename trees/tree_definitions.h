@@ -45,7 +45,6 @@ Node<T>* correctHeight(Node<T>* root) {}
 template <typename T>
 Node<T>* findMin(Node<T>* node) {
   if (!node || !node->left) {
-    std::cout << "returning node with value " << node->value << "\n";
     return node;
   }
 
