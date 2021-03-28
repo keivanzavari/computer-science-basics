@@ -43,6 +43,16 @@ template <typename T>
 Node<T>* correctHeight(Node<T>* root) {}
 
 template <typename T>
+Node<T>* findMin(Node<T>* node) {
+  if (!node || !node->left) {
+    std::cout << "returning node with value " << node->value << "\n";
+    return node;
+  }
+
+  return findMin(node->left);
+}
+
+template <typename T>
 Node<T>* delete_node(Node<T>* node) {
   if (node) {
     Node<T>* res = nullptr;
