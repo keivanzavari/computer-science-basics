@@ -6,6 +6,15 @@
 #include <memory>
 #include <variant>
 
+/**
+ * How to make a generic config like dictionary in C++.
+ * Set and get config entries like json:
+ * {"user": {"name": John Smith, "age": 35}}
+ * and get with user.name, user.age
+ *
+ */
+
+
 template <typename T>
 std::ostream &operator<<(std::ostream &os, const std::vector<T> &vec)
 {
