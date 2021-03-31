@@ -22,21 +22,17 @@ class CircularBuffer {
     }
     data.at(current_index++) = value;
   }
-  void push_back(const T value) {
-    if (current_index == size) {
-      current_index = 0;
-    }
-    data.at(current_index++) = value;
-  }
-  std::vector<T> data;
-  unsigned int current_index = 0;
-  unsigned int size;
 
   std::vector<T>::iterator begin() { return data.begin(); }
   std::vector<T>::iterator end() { return data.end(); }
 
   std::vector<T>::const_iterator begin() const { return data.begin(); }
   std::vector<T>::const_iterator end() const { return data.end(); }
+
+ private:
+  std::vector<T> data;
+  unsigned int current_index = 0;
+  unsigned int size;
 
  private:
 };
