@@ -2,15 +2,7 @@
 #include <iostream>
 #include <vector>
 
-template <typename T>
-std::ostream& operator<<(std::ostream& os, const std::vector<T>& container) {
-  os << "[";
-  for (const auto& v : container) {
-    os << v << " ";
-  }
-  os << "]";
-  return os;
-}
+#include "vector_ostream.h"
 
 template <typename T>
 void swap(T& a, T& b) {

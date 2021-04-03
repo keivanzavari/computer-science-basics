@@ -1,18 +1,10 @@
 #include <iostream>
 #include <vector>
 
+#include "vector_ostream.h"
+
 // There are many functions here that are already part of STL library, many either in <algorithm> or <utility>.
 // Functions like swap, min, max, copy, etc.
-
-template <typename T>
-std::ostream& operator<<(std::ostream& os, const std::vector<T>& container) {
-  os << "[";
-  for (const auto& v : container) {
-    os << v << " ";
-  }
-  os << "]";
-  return os;
-}
 
 // break down the array into smallest elements i.e. vectors of size 1.
 // then merge them back with comparison between the elements.
