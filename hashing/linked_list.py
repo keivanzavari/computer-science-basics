@@ -51,6 +51,24 @@ class LinkedList:
         begin.next = self.head
         self.head = begin
 
+    def delete(self, key: Any) -> bool:
+        if self.head.k == key:
+            self.head = self.head.next
+            return True
+        node = self.head
+        next_node = node.next
+        prev_node = node
+        while True:
+            if node.k == key:
+                prev_node.next = next_node
+                return True
+            if node is None or node.next is None:
+                raise KeyError(f"Key {key} doesn't exist.")
+
+            prev_node = node
+            node = node.next
+            next_node = node.next
+
     def search(self, key: Any) -> Any:
         node = self.head
         while True:
@@ -68,3 +86,5 @@ if __name__ == '__main__':
     p.insert_begin(6, 7)
     for item in p:
         print(f"({item.k}, {item.v})")
+
+    p.delete(6)
