@@ -4,27 +4,14 @@
 #include <unordered_map>
 #include <vector>
 
+#include "linked_list.h"
+
 using VertexType = int;
-
-struct EdgeLinkedList {
-  VertexType to;
-  EdgeLinkedList* next;
-
-  EdgeLinkedList(VertexType to_) : to(to_), next(nullptr) {}
-  EdgeLinkedList(VertexType to_, EdgeLinkedList* ptr) : to(to_), next(ptr) {}
-};
-
-EdgeLinkedList* addChild(EdgeLinkedList* root, VertexType edge) {
-  if (!root->next) {
-    root->next = EdgeLinkedList(edge);
-    return root;
-  }
-  return addChild(root->next, edge);
-}
 
 // Graph implementation using adjacency list.
 class Graph {
  public:
+  using Edges = Node<VertexType>;
   bool addVertex(VertexType vertex_name);
   bool addEdge(VertexType from, VertexType to);
 
