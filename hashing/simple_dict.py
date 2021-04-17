@@ -13,6 +13,8 @@ def init_table(size: int) -> list:
     return t
 
 
+# Another way is to implement with open addressing
+# https://en.wikipedia.org/wiki/Open_addressing
 class DictWithChaining:
     def __init__(self):
         self.table_size = 2
@@ -55,6 +57,7 @@ class DictWithChaining:
             self.num_items += 1
         self.maybe_grow()
 
+    # TODO implement delete and consider the cases where there was a collision.
     def delete(self, k: Any):
         idx = self.get_index(k, self.table_size)
         self.table[idx] = None
