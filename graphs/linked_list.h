@@ -2,29 +2,33 @@
 #include <iostream>
 #include <vector>
 
+template <typename T>
 struct Node {
-  int data;
-  Node* next;
+  T data;
+  Node<T>* next;
 
-  Node(int v, Node* next_ = nullptr) : data(v), next(next_) {}
+  Node(T v, Node* next_ = nullptr) : data(v), next(next_) {}
   Node() : data(0), next(nullptr) {}
 };
 
-Node* insertEnd(Node* head, int data) {
-  Node* end = head;
+template <typename T>
+Node<T>* insertEnd(Node<T>* head, int data) {
+  Node<T>* end = head;
   while (end->next) {
     end = end->next;
   }
-  end->next = new Node(data, nullptr);
+  end->next = new Node<T>(data, nullptr);
   return head;
 }
 
-Node* insertBegin(Node* head, int data) {
-  Node* new_head = new Node(data, head);
+template <typename T>
+Node<T>* insertBegin(Node<T>* head, int data) {
+  Node<T>* new_head = new Node<T>(data, head);
   return new_head;
 }
 
-std::ostream& operator<<(std::ostream& os, Node* head) {
+template <typename T>
+std::ostream& operator<<(std::ostream& os, Node<T>* head) {
   os << "[";
   while (head) {
     os << head->data << " ";
