@@ -39,16 +39,16 @@ public:
     return true;
   }
 
-  void bfs(T start) {
-    std::map<T, int> level{{start, 0}};
-    std::map<T, T> parent{{start, start}};
+  std::unordered_map<T, T> bfs(T start) const {
+    std::unordered_map<T, int> level{{start, 0}};
+    std::unordered_map<T, T> parent{{start, start}};
     int i = 1;
     std::vector<T> frontier{start};
     while (!frontier.empty()) {
       std::vector<T> next;
       for (const auto &u : frontier) {
         // Loop through the edges of vertex u.
-        auto edges = graph_[u];
+        auto edges = graph_.at(u);
         while (edges) {
           // If vertex has not been visited.
           if (!level.contains(edges->data)) {
@@ -59,13 +59,27 @@ public:
           edges = edges->next;
         }
       }
-      std::cout << "frontier: " << frontier << "\n";
       frontier = next;
       ++i;
     }
 
-    std::cout << "level: " << level << "\n";
-    std::cout << "parent: " << parent << "\n";
+    return parent;
+  }
+
+  std::vector<T> getShortestPath(T from, T to) const {
+    auto parent_vertices = bfs(from);
+    if (parent_vertices.empty() || !parent_vertices.contains(from) ||
+        !parent_vertices.contains(to)) {
+      return {};
+    }
+    std::vector<T> path;
+    T vertex = to;
+    while (vertex != from) {
+      path.push_back(vertex);
+      vertex = parent_vertices.at(vertex);
+    }
+    path.push_back(from);
+    return path;
   }
 
   void print() const {
