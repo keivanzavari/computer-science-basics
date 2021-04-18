@@ -18,7 +18,10 @@ int main() {
   }
   g.print();
 
-  g.bfs('s');
+  char from = vertices[2];
+  char to = vertices[7];
+  auto path = g.getShortestPath(from, to);
+  std::cout << "path from " << from << " to " << to << ": " << path << "\n";
 
   return 0;
 }
