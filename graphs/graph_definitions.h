@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -7,29 +8,43 @@
 
 #include "linked_list.h"
 
-using VertexType = int;
-
 // Graph implementation using adjacency list.
-class Graph {
- public:
-  using Edges = std::shared_ptr<Node<VertexType>>;
-  bool addVertex(VertexType vertex_name) {
-    if (!graph.contains(vertex_name)) {
-      graph[vertex_name] = nullptr;
+template <typename T> class Graph {
+public:
+  explicit Graph(bool directed = false) : directed_{directed} {}
+  using Edges = std::shared_ptr<Node<T>>;
+
+  bool addVertex(T vertex_name) {
+    if (!graph_.contains(vertex_name)) {
+      graph_[vertex_name] = nullptr;
       return true;
     }
     return false;
   }
 
-  bool addEdge(VertexType from, VertexType to) {
-    if (!graph.contains(from)) {
-      throw std::runtime_error("vertex " + std::to_string(from) + " has not been added yet.");
+  bool addEdge(T from, T to) {
+    if (!graph_.contains(from)) {
+      throw std::runtime_error("vertex " + std::to_string(from) +
+                               " has not been added yet.");
+    }
+    auto head = graph_[from];
+    graph_[from] = insertBegin(head, to);
+    if (!directed_) {
+      head = graph_[to];
+      graph_[to] = insertBegin(head, from);
     }
 
-    auto head = graph[from];
-    graph[from] = insertBegin(head, to);
+    return true;
   }
 
- private:
-  std::unordered_map<VertexType, Edges> graph;
+  void print() const {
+    std::cout << "Graph:\n";
+    for (const auto &[vertex, edges] : graph_) {
+      std::cout << "vertex: " << vertex << " edges: " << edges << "\n";
+    }
+  }
+
+private:
+  std::unordered_map<T, Edges> graph_;
+  const bool directed_;
 };
