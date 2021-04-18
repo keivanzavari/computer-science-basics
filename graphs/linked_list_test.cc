@@ -1,15 +1,15 @@
 #include "linked_list.h"
 
+#include <memory>
+
 int main() {
-  auto head = Node<int>(1);
-  Node<int>* head_ptr = &head;
+  auto head_ptr = std::make_shared<Node<int>>(1);
   head_ptr = insertBegin(head_ptr, 2);
   head_ptr = insertBegin(head_ptr, 3);
 
   std::cout << head_ptr << "\n";
 
-  auto head2 = Node<int>(1);
-  Node<int>* head_ptr2 = &head2;
+  auto head_ptr2 = std::make_shared<Node<int>>(1);
   head_ptr2 = insertEnd(head_ptr2, 2);
   head_ptr2 = insertEnd(head_ptr2, 3);
   std::cout << head_ptr2 << "\n";
