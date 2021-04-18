@@ -4,6 +4,7 @@ project(math_coding_problems)
 set(CMAKE_CXX_STANDARD 20)
 
 include_directories(graphs)
+include_directories(include)
 include_directories(sorting)
 
 add_executable(linked_list_test
