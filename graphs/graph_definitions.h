@@ -11,8 +11,9 @@
 #include "linked_list.h"
 
 // Graph implementation using adjacency list.
-template <typename T> class Graph {
-public:
+template <typename T>
+class Graph {
+ public:
   explicit Graph(bool directed = false) : directed_{directed} {}
   using Edges = std::shared_ptr<Node<T>>;
 
@@ -26,8 +27,7 @@ public:
 
   bool addEdge(T from, T to) {
     if (!graph_.contains(from)) {
-      throw std::runtime_error("vertex " + std::to_string(from) +
-                               " has not been added yet.");
+      throw std::runtime_error("vertex " + std::to_string(from) + " has not been added yet.");
     }
     auto head = graph_[from];
     graph_[from] = insertBegin(head, to);
@@ -39,6 +39,7 @@ public:
     return true;
   }
 
+  // BFS can also be implemented using a queue. For an example see CLRS book pp. 594
   std::unordered_map<T, T> bfs(T start) const {
     std::unordered_map<T, int> level{{start, 0}};
     std::unordered_map<T, T> parent{{start, start}};
@@ -68,8 +69,7 @@ public:
 
   std::vector<T> getShortestPath(T from, T to) const {
     auto parent_vertices = bfs(from);
-    if (parent_vertices.empty() || !parent_vertices.contains(from) ||
-        !parent_vertices.contains(to)) {
+    if (parent_vertices.empty() || !parent_vertices.contains(from) || !parent_vertices.contains(to)) {
       return {};
     }
     std::vector<T> path;
@@ -91,7 +91,7 @@ public:
     std::cout << "--------\n";
   }
 
-private:
+ private:
   std::unordered_map<T, Edges> graph_;
   const bool directed_;
 };
