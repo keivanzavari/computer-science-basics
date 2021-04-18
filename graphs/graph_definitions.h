@@ -3,6 +3,7 @@
 #include <iostream>
 #include <map>
 #include <memory>
+#include <set>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -15,11 +16,11 @@ template <typename T>
 class Graph {
  public:
   explicit Graph(bool directed = false) : directed_{directed} {}
-  using Edges = std::shared_ptr<Node<T>>;
+  using Edges = std::set<T>;
 
   bool addVertex(T vertex_name) {
     if (!graph_.contains(vertex_name)) {
-      graph_[vertex_name] = nullptr;
+      graph_[vertex_name] = {};
       return true;
     }
     return false;
@@ -32,11 +33,9 @@ class Graph {
     if (!graph_.contains(to)) {
       addVertex(to);
     }
-    auto head = graph_[from];
-    graph_[from] = insertBegin(head, to);
+    graph_[from].insert(to);
     if (!directed_) {
-      head = graph_[to];
-      graph_[to] = insertBegin(head, from);
+      graph_[to].insert(from);
     }
 
     return true;
@@ -50,17 +49,16 @@ class Graph {
     std::vector<T> frontier{start};
     while (!frontier.empty()) {
       std::vector<T> next;
-      for (const auto &u : frontier) {
+      for (const auto& u : frontier) {
         // Loop through the edges of vertex u.
-        auto edges = graph_.at(u);
-        while (edges) {
+        const auto& edges = graph_.at(u);
+        for (const auto& e : edges) {
           // If vertex has not been visited.
-          if (!level.contains(edges->data)) {
-            level[edges->data] = i;
-            parent[edges->data] = u;
-            next.push_back(edges->data);
+          if (!level.contains(e)) {
+            level[e] = i;
+            parent[e] = u;
+            next.push_back(e);
           }
-          edges = edges->next;
         }
       }
       frontier = next;
@@ -88,7 +86,7 @@ class Graph {
   void print() const {
     std::cout << "--------\n";
     std::cout << "Graph:\n";
-    for (const auto &[vertex, edges] : graph_) {
+    for (const auto& [vertex, edges] : graph_) {
       std::cout << "vertex: " << vertex << " edges: " << edges << "\n";
     }
     std::cout << "--------\n";
