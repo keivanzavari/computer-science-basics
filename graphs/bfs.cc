@@ -18,5 +18,7 @@ int main() {
   }
   g.print();
 
+  g.bfs('s');
+
   return 0;
 }
