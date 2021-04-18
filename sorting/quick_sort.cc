@@ -2,21 +2,21 @@
 #include <iostream>
 #include <vector>
 
-#include "vector_ostream.h"
+#include "../include/ostream_overload.h"
 
-template <typename T>
-void swap(T& a, T& b) {
+template <typename T> void swap(T &a, T &b) {
   T tmp = a;
   a = b;
   b = tmp;
 }
 
 template <typename T>
-std::size_t partition(std::vector<T>& vec, std::size_t start, std::size_t end) {
+std::size_t partition(std::vector<T> &vec, std::size_t start, std::size_t end) {
   T pivot = vec[start];
   // std::size_t middle = (start + end) / 2;
   // T pivot = vec[middle];
-  // std::cout << "pivot: " << pivot << ", middle " << middle << ", start " << start << ", end " << end << "\n";
+  // std::cout << "pivot: " << pivot << ", middle " << middle << ", start " <<
+  // start << ", end " << end << "\n";
 
   std::size_t left_idx = start;
   for (std::size_t right_idx = start + 1; right_idx <= end; ++right_idx) {
@@ -38,7 +38,7 @@ std::size_t partition(std::vector<T>& vec, std::size_t start, std::size_t end) {
 }
 
 template <typename T>
-void quickSort(std::vector<T>& vec, std::size_t start, std::size_t end) {
+void quickSort(std::vector<T> &vec, std::size_t start, std::size_t end) {
   if (start < end) {
     // std::cout << "vec: " << vec << "\n";
     auto q = partition(vec, start, end);
@@ -52,7 +52,8 @@ void quickSort(std::vector<T>& vec, std::size_t start, std::size_t end) {
 }
 
 template <typename T>
-void quickSortNonRecursive(std::vector<T>& vec, std::size_t start, std::size_t end) {
+void quickSortNonRecursive(std::vector<T> &vec, std::size_t start,
+                           std::size_t end) {
   if (start < end) {
     std::size_t begin_idx = start;
     std::size_t end_idx = end;

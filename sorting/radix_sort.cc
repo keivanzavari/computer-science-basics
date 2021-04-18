@@ -2,7 +2,7 @@
 #include <functional>
 #include <vector>
 
-#include "vector_ostream.h"
+#include "../include/ostream_overload.h"
 
 // The big assumption here is that the numbers are expressed in base 10.
 
@@ -34,7 +34,8 @@ int getNumDigits(int number) {
   }
 }
 
-void countingSort(std::vector<int>& values, const std::function<int(int)> getKey) {
+void countingSort(std::vector<int> &values,
+                  const std::function<int(int)> getKey) {
   if (values.empty()) {
     return;
   }
@@ -43,7 +44,8 @@ void countingSort(std::vector<int>& values, const std::function<int(int)> getKey
   key_lists.resize(num_keys);
 
   for (const auto v : values) {
-    // This is basically a key to the key_lists, in case of positive ints this becomes v-1
+    // This is basically a key to the key_lists, in case of positive ints this
+    // becomes v-1
     int key = getKey(v);
     key_lists[key].push_back(v);
   }
@@ -55,15 +57,17 @@ void countingSort(std::vector<int>& values, const std::function<int(int)> getKey
   values = output;
 }
 
-void radixSort(std::vector<int>& values, int num_digits) {
+void radixSort(std::vector<int> &values, int num_digits) {
   // sort by least significat digit
   //
   std::vector<int> digits{};
   int base = 10;
   for (int digit_number = 0; digit_number < num_digits; ++digit_number) {
     // Lambda expression does the same.
-    // auto getKey = [&](int value) -> int { return getDigit(value, digit_number); };
-    std::function<int(int)> getKey = std::bind(getDigit, std::placeholders::_1, digit_number);
+    // auto getKey = [&](int value) -> int { return getDigit(value,
+    // digit_number); };
+    std::function<int(int)> getKey =
+        std::bind(getDigit, std::placeholders::_1, digit_number);
     countingSort(values, getKey);
     std::cout << "values: " << values << "\n";
   }

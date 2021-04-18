@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 
-#include "vector_ostream.h"
+#include "../include/ostream_overload.h"
 
 // Generate index from values
 // values going from k to l
@@ -13,7 +13,8 @@
 int KeyFromValue(int i, int min, int max) { return i - std::abs(min); }
 int ValueFromKey(int key, int min) { return std::abs(min) + key; }
 
-std::vector<int> CountingSort(const std::vector<int>& values, int min, int max) {
+std::vector<int> CountingSort(const std::vector<int> &values, int min,
+                              int max) {
   if (values.empty()) {
     return {};
   }
@@ -22,7 +23,8 @@ std::vector<int> CountingSort(const std::vector<int>& values, int min, int max) 
   key_lists.resize(num_keys + 1);
 
   for (const auto v : values) {
-    // This is basically a key to the key_lists, in case of positive ints this becomes v-1
+    // This is basically a key to the key_lists, in case of positive ints this
+    // becomes v-1
     int key = KeyFromValue(v, min, max);
     key_lists[key].push_back(v);
   }
@@ -35,7 +37,7 @@ std::vector<int> CountingSort(const std::vector<int>& values, int min, int max) 
 }
 
 template <typename T>
-bool operator==(const std::vector<T>& vec1, const std::vector<T>& vec2) {
+bool operator==(const std::vector<T> &vec1, const std::vector<T> &vec2) {
   if (vec1.size() != vec2.size()) {
     return false;
   }

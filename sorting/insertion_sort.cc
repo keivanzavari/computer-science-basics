@@ -2,15 +2,16 @@
 #include <stdexcept>
 #include <vector>
 
-#include "vector_ostream.h"
+#include "../include/ostream_overload.h"
 
 class NotImplemented : public std::logic_error {
- public:
+public:
   NotImplemented() : std::logic_error("Function not yet implemented"){};
 };
 
 template <typename T>
-void placeAtIndex(std::vector<T>& vec, std::size_t from_idx, std::size_t to_idx) {
+void placeAtIndex(std::vector<T> &vec, std::size_t from_idx,
+                  std::size_t to_idx) {
   // Assume to_idx is smaller than from_idx
   if (to_idx > from_idx) {
     throw NotImplemented();
@@ -21,8 +22,8 @@ void placeAtIndex(std::vector<T>& vec, std::size_t from_idx, std::size_t to_idx)
   // simple way to copy that part of the vector that needs to be shifted.
   // std::vector<T> new_vec(vec.begin() + to_idx, vec.begin() + from_idx);
 
-  // Another way and more efficient is to only copy the value. Since the value gets overridden we need to keep two
-  // values one at idx and one at index+1.
+  // Another way and more efficient is to only copy the value. Since the value
+  // gets overridden we need to keep two values one at idx and one at index+1.
   T value = vec.at(from_idx);
   std::size_t new_idx = 0;
   T value_at_idx = vec.at(to_idx);
@@ -40,19 +41,23 @@ void placeAtIndex(std::vector<T>& vec, std::size_t from_idx, std::size_t to_idx)
 }
 
 template <typename T>
-std::size_t findIndex(const std::vector<T>& vec, std::size_t until_idx_sorted, T value) {
-  // Find the index where the value can be positioned between the two other values in a half sorted vector sorted vector
-  // Example: find the index where x=5 can be positioned in vector=[0,2,4,7,10,12, -1, 3, 6] (sorted until index 5) ->
-  // index=3
+std::size_t findIndex(const std::vector<T> &vec, std::size_t until_idx_sorted,
+                      T value) {
+  // Find the index where the value can be positioned between the two other
+  // values in a half sorted vector sorted vector Example: find the index where
+  // x=5 can be positioned in vector=[0,2,4,7,10,12, -1, 3, 6] (sorted until
+  // index 5) -> index=3
   if (until_idx_sorted > vec.size() - 1) {
-    throw std::runtime_error("Index until which the container is sorted is larger than container size.");
+    throw std::runtime_error("Index until which the container is sorted is "
+                             "larger than container size.");
   }
   // start from both ends
   std::size_t idx_left = 0;
   std::size_t idx_right = until_idx_sorted;
   bool idx_found = false;
   std::size_t idx_middle = static_cast<std::size_t>(idx_left + idx_right) / 2;
-  // std::cout << "left: " << idx_left << " middle: " << idx_middle << " right: " << idx_right << "\n";
+  // std::cout << "left: " << idx_left << " middle: " << idx_middle << " right:
+  // " << idx_right << "\n";
   while (idx_left < idx_right) {
     if (vec.at(idx_middle) == value) {
       // std::cout << "return middle " << idx_middle << "\n";
@@ -67,7 +72,8 @@ std::size_t findIndex(const std::vector<T>& vec, std::size_t until_idx_sorted, T
       idx_right = idx_middle - 1;
     }
     idx_middle = static_cast<std::size_t>(idx_left + idx_right) / 2;
-    // std::cout << "left: " << idx_left << " middle: " << idx_middle << " right: " << idx_right << "\n";
+    // std::cout << "left: " << idx_left << " middle: " << idx_middle << "
+    // right: " << idx_right << "\n";
   }
   if (value > vec.at(idx_middle)) {
     return idx_middle + 1;
@@ -77,17 +83,17 @@ std::size_t findIndex(const std::vector<T>& vec, std::size_t until_idx_sorted, T
 
 // go through the list, start from position j=2
 // place the value in its right place in lower positions.
-// So in the first iteration, the value is only compared to the value at position j=1
+// So in the first iteration, the value is only compared to the value at
+// position j=1
 
 // at later positions, the value is compared to all values up to that position.
-// so for 2,3,4,1 when you reach position j=4 where the value is 1, it is compared to all values before and placed at
-// location j=1 so that you have 1,2,3,4 as the result of operation.
-// that's why is of O(n^2).
+// so for 2,3,4,1 when you reach position j=4 where the value is 1, it is
+// compared to all values before and placed at location j=1 so that you have
+// 1,2,3,4 as the result of operation. that's why is of O(n^2).
 
 // it is considered at placing the value at a certain location is cheap.
 
-template <typename T>
-void sort(std::vector<T>& vec) {
+template <typename T> void sort(std::vector<T> &vec) {
   for (std::size_t j = 1; j < vec.size(); ++j) {
     // find the right place the value should be
     auto idx = findIndex(vec, j - 1, vec.at(j));
@@ -132,7 +138,7 @@ int main() {
     std::cout << "Index: " << idx << "\n";
   }
   if (1) {
-    std::vector<int> vec{0, 2, 2, 1};  //{7, 6, 5, 4, 3, 2, 1, 0};
+    std::vector<int> vec{0, 2, 2, 1}; //{7, 6, 5, 4, 3, 2, 1, 0};
     std::cout << "original vector: " << vec << "\n";
     sort(vec);
     std::cout << "new vector after sort: " << vec << "\n";
