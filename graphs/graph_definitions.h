@@ -27,7 +27,10 @@ class Graph {
 
   bool addEdge(T from, T to) {
     if (!graph_.contains(from)) {
-      throw std::runtime_error("vertex " + std::to_string(from) + " has not been added yet.");
+      addVertex(from);
+    }
+    if (!graph_.contains(to)) {
+      addVertex(to);
     }
     auto head = graph_[from];
     graph_[from] = insertBegin(head, to);
