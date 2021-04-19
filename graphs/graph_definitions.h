@@ -83,6 +83,32 @@ class Graph {
     return path;
   }
 
+  void dfsVisit(T start, std::unordered_map<T, T>& parent) {
+    // for vertives in adjacenecy list of start i.e. for all edges connected to start
+    std::cout << "visiting vertex:" << start << "\n";
+    const auto& vertices_connected_to = graph_.at(start);
+    for (const auto& v : vertices_connected_to) {
+      if (!parent.contains(v)) {
+        parent[v] = start;
+        dfsVisit(v, parent);
+      }
+    }
+  }
+  void dfs(T start) {
+    std::unordered_map<T, T> parent{{start, start}};
+
+    for (const auto& [vertex, vertices_connected_to] : graph_) {
+      // std::cout << "at vertex " << vertex << "\t";
+      if (!parent.contains(vertex)) {
+        dfsVisit(vertex, parent);
+      } else {
+        std::cout << "parent contains vertex " << vertex << ", value: " << parent.at(vertex) << "\n";
+      }
+    }
+
+    std::cout << "parent: " << parent << "\n";
+  }
+
   void print() const {
     std::cout << "--------\n";
     std::cout << "Graph:\n";
