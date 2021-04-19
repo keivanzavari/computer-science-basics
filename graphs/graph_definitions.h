@@ -94,6 +94,8 @@ class Graph {
       }
     }
   }
+
+  // Similar to BFS that can be implemented with a queue, DFS can be implemented with a stack.
   void dfs(T start) {
     std::unordered_map<T, T> parent{{start, start}};
 
