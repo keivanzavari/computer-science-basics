@@ -15,8 +15,10 @@
 template <typename T>
 class Graph {
  public:
-  explicit Graph(bool directed = false) : directed_{directed} {}
   using Edges = std::set<T>;
+  using AdjList = std::unordered_map<T, Edges>;
+
+  explicit Graph(bool directed = false) : directed_{directed} {}
 
   bool addVertex(T vertex_name) {
     if (!graph_.contains(vertex_name)) {
@@ -120,7 +122,9 @@ class Graph {
     std::cout << "--------\n";
   }
 
+  const AdjList& get() const { return graph_; }
+
  private:
-  std::unordered_map<T, Edges> graph_;
+  AdjList graph_;
   const bool directed_;
 };
