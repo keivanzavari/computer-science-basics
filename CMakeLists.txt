@@ -10,16 +10,16 @@ include_directories(sorting)
 add_executable(linked_list_test
         graphs/graph_definitions.h
         graphs/linked_list.h
-        graphs/linked_list_test.cc)
+        graphs/test/linked_list_test.cc)
 
 
 add_executable(bfs_test
         graphs/graph_definitions.h
         graphs/linked_list.h
-        graphs/bfs_test.cc)
+        graphs/test/bfs_test.cc)
 
 
 add_executable(dfs_test
 graphs/graph_definitions.h
 graphs/linked_list.h
-graphs/dfs_test.cc)
+graphs/test/dfs_test.cc)
