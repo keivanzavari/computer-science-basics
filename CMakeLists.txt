@@ -13,10 +13,10 @@ add_executable(linked_list_test
         graphs/linked_list_test.cc)
 
 
-add_executable(bfs
+add_executable(bfs_test
         graphs/graph_definitions.h
         graphs/linked_list.h
-        graphs/bfs.cc)
+        graphs/bfs_test.cc)
 
 
 add_executable(dfs_test

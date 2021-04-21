@@ -1,3 +1,5 @@
+#include "bfs.h"
+
 #include <utility>
 #include <vector>
 
@@ -6,9 +8,8 @@
 int main() {
   Graph<char> g(false);
   char vertices[] = {'a', 'z', 's', 'x', 'd', 'c', 'f', 'v'};
-  std::vector<std::pair<char, char>> edges{
-      {'a', 'z'}, {'a', 's'}, {'s', 'x'}, {'x', 'd'}, {'x', 'c'},
-      {'c', 'd'}, {'d', 'f'}, {'c', 'f'}, {'c', 'v'}, {'f', 'v'}};
+  std::vector<std::pair<char, char>> edges{{'a', 'z'}, {'a', 's'}, {'s', 'x'}, {'x', 'd'}, {'x', 'c'},
+                                           {'c', 'd'}, {'d', 'f'}, {'c', 'f'}, {'c', 'v'}, {'f', 'v'}};
   for (const auto v : vertices) {
     g.addVertex(v);
   }
@@ -20,7 +21,7 @@ int main() {
 
   char from = vertices[2];
   char to = vertices[7];
-  auto path = g.getShortestPath(from, to);
+  auto path = getShortestPath(g.get(), from, to);
   std::cout << "path from " << from << " to " << to << ": " << path << "\n";
 
   return 0;
