@@ -19,7 +19,7 @@ add_executable(bfs
         graphs/bfs.cc)
 
 
-add_executable(dfs
+add_executable(dfs_test
 graphs/graph_definitions.h
 graphs/linked_list.h
-graphs/dfs.cc)
+graphs/dfs_test.cc)

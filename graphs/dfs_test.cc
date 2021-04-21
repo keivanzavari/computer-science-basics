@@ -1,7 +1,11 @@
+
 #include <utility>
 #include <vector>
 
+// clang-format off
 #include "graph_definitions.h"
+#include "dfs.h"
+// clang-format on
 
 void testOne() {
   constexpr bool directed = true;
@@ -18,7 +22,7 @@ void testOne() {
   }
   g.print();
 
-  g.dfs('u');
+  dfs(g.get(), 'u');
 }
 
 void testDag() {
@@ -36,7 +40,7 @@ void testDag() {
   }
   g.print();
 
-  g.dfs('u');
+  dfs(g.get(), 'u');
 }
 
 int main() {
