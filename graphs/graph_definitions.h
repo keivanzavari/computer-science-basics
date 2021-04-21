@@ -11,13 +11,15 @@
 #include "../include/ostream_overload.h"
 #include "linked_list.h"
 
+template <typename T>
+using Edges = std::set<T>;
+template <typename T>
+using AdjList = std::unordered_map<T, Edges<T>>;
+
 // Graph implementation using adjacency list.
 template <typename T>
 class Graph {
  public:
-  using Edges = std::set<T>;
-  using AdjList = std::unordered_map<T, Edges>;
-
   explicit Graph(bool directed = false) : directed_{directed} {}
 
   bool addVertex(T vertex_name) {
@@ -85,34 +87,6 @@ class Graph {
     return path;
   }
 
-  void dfsVisit(T start, std::unordered_map<T, T>& parent) {
-    // for vertives in adjacenecy list of start i.e. for all edges connected to start
-    std::cout << "visiting vertex:" << start << "\n";
-    const auto& vertices_connected_to = graph_.at(start);
-    for (const auto& v : vertices_connected_to) {
-      if (!parent.contains(v)) {
-        parent[v] = start;
-        dfsVisit(v, parent);
-      }
-    }
-  }
-
-  // Similar to BFS that can be implemented with a queue, DFS can be implemented with a stack.
-  void dfs(T start) {
-    std::unordered_map<T, T> parent{{start, start}};
-
-    for (const auto& [vertex, vertices_connected_to] : graph_) {
-      // std::cout << "at vertex " << vertex << "\t";
-      if (!parent.contains(vertex)) {
-        dfsVisit(vertex, parent);
-      } else {
-        std::cout << "parent contains vertex " << vertex << ", value: " << parent.at(vertex) << "\n";
-      }
-    }
-
-    std::cout << "parent: " << parent << "\n";
-  }
-
   void print() const {
     std::cout << "--------\n";
     std::cout << "Graph:\n";
@@ -122,9 +96,9 @@ class Graph {
     std::cout << "--------\n";
   }
 
-  const AdjList& get() const { return graph_; }
+  const AdjList<T>& get() const { return graph_; }
 
  private:
-  AdjList graph_;
+  AdjList<T> graph_;
   const bool directed_;
 };
