@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <stack>
+#include <unordered_map>
 
 #include "graph_definitions.h"
 
@@ -31,4 +33,26 @@ void dfs(const AdjList<T>& graph, T start) {
   }
 
   std::cout << "parent: " << parent << "\n";
+}
+
+// DFS can also be implemented using a stack. This implementation replaces the queue implementation of BFS with a stack.
+// This turns the algorithm into DFS.
+template <typename T>
+std::unordered_map<T, T> dfsWithStack(const AdjList<T>& graph, T start) {
+  std::unordered_map<T, T> parent{{start, start}};
+  std::stack<T> stack;
+  stack.push(start);
+  while (!stack.empty()) {
+    auto vertex = stack.top();
+    stack.pop();
+    const auto& edges = graph.at(vertex);
+    for (const auto& edge : edges) {
+      if (!parent.contains(edge)) {
+        parent[edge] = vertex;
+        stack.push(edge);
+      }
+    }
+  }
+
+  return parent;
 }
