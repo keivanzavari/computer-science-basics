@@ -1,11 +1,11 @@
 #pragma once
 
+#include <queue>
 #include <unordered_map>
 #include <vector>
 
 #include "graph_definitions.h"
 
-// BFS can also be implemented using a queue. For an example see CLRS book pp. 594
 template <typename T>
 std::unordered_map<T, T> bfs(const AdjList<T>& graph, T start) {
   std::unordered_map<T, int> level{{start, 0}};
@@ -28,6 +28,27 @@ std::unordered_map<T, T> bfs(const AdjList<T>& graph, T start) {
     }
     frontier = next;
     ++i;
+  }
+
+  return parent;
+}
+
+// BFS can also be implemented using a queue. For an example see CLRS book pp. 594
+template <typename T>
+std::unordered_map<T, T> bfsWithQueue(const AdjList<T>& graph, T start) {
+  std::unordered_map<T, T> parent{{start, start}};
+  std::queue<T> queue;
+  queue.push(start);
+  while (!queue.empty()) {
+    auto vertex = queue.front();
+    queue.pop();
+    const auto& edges = graph.at(vertex);
+    for (const auto& edge : edges) {
+      if (!parent.contains(edge)) {
+        parent[edge] = vertex;
+        queue.push(edge);
+      }
+    }
   }
 
   return parent;
