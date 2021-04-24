@@ -7,7 +7,7 @@
 #include "dfs.h"
 // clang-format on
 
-void testClrs() {
+void testClrsDfsExample() {
   constexpr bool directed = true;
   Graph<char> g(directed);
   char vertices[] = {'u', 'v', 'w', 'x', 'y', 'z'};
@@ -40,7 +40,8 @@ void testDag() {
   }
   g.print();
 
-  dfs(g.get(), 'h');
+  auto out = dfsWithStack(g.get());
+  // dfs(g.get(), 'h');
 }
 
 void testBst() {
@@ -54,7 +55,7 @@ void testBst() {
     g.addEdge(e.first, e.second);
   }
 
-  dfs(g.get(), 'd');
+  auto out = dfsWithStack(g.get());
 }
 
 void testLine() {
@@ -68,10 +69,11 @@ void testLine() {
     g.addEdge(e.first, e.second);
   }
 
-  dfs(g.get(), 'a');
+  auto out = dfsWithStack(g.get());
+  std::cout << "out: " << out << "\n";
 }
 
 int main() {
-  testLine();
+  testDag();
   return 0;
 }

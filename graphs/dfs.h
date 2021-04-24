@@ -35,24 +35,41 @@ void dfs(const AdjList<T>& graph, T start) {
   std::cout << "parent: " << parent << "\n";
 }
 
+template <typename T>
+bool contains(const std::vector<T>& vec, T val) {
+  const auto it = std::find(vec.begin(), vec.end(), val);
+  if (it == vec.end()) return false;
+  return true;
+}
+
 // DFS can also be implemented using a stack. This implementation replaces the queue implementation of BFS with a stack.
 // This turns the algorithm into DFS.
 template <typename T>
-std::unordered_map<T, T> dfsWithStack(const AdjList<T>& graph, T start) {
-  std::unordered_map<T, T> parent{{start, start}};
-  std::stack<T> stack;
-  stack.push(start);
-  while (!stack.empty()) {
-    auto vertex = stack.top();
-    stack.pop();
-    const auto& edges = graph.at(vertex);
-    for (const auto& edge : edges) {
-      if (!parent.contains(edge)) {
-        parent[edge] = vertex;
-        stack.push(edge);
+// std::unordered_map<T, T>
+std::vector<T> dfsWithStack(const AdjList<T>& graph) {
+  std::unordered_map<T, T> parent{};
+  std::vector<T> finished;
+  for (const auto& [start, tmp] : graph) {
+    if (!contains(finished, start)) {
+      parent[start] = start;
+      std::stack<T> stack;
+      stack.push(start);
+      while (!stack.empty()) {
+        auto vertex = stack.top();
+        stack.pop();
+        const auto& edges = graph.at(vertex);
+        for (const auto& edge : edges) {
+          if (!parent.contains(edge)) {
+            parent[edge] = vertex;
+            stack.push(edge);
+          }
+        }
+        // At this point we are finished with the 'vertex'
+        finished.push_back(vertex);
       }
     }
   }
 
-  return parent;
+  std::cout << "finished: " << finished << "\n";
+  return finished;
 }
