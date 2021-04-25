@@ -36,8 +36,12 @@ std::vector<N> dijkstra(const AdjList<N, W>& graph, N start) {
   std::vector<N> determined{};
   initialize(graph, start, distances, parents);
 
-  std::priority_queue<W, std::vector<W>, std::greater<W>> min_heap;
+  std::priority_queue<N, std::vector<N>, std::greater<N>> min_heap;
+  for (const auto& el : graph) {
+    min_heap.push(el.first);
+  }
   while (!min_heap.empty()) {
+    std::cout << determined << "\n";
     auto u = min_heap.top();
     min_heap.pop();
     determined.push_back(u);
@@ -54,6 +58,8 @@ std::vector<N> dijkstra(const AdjList<N, W>& graph, N start) {
       }
     }
   }
+
+  std::cout << "distances: " << distances << "\n";
   return determined;
 }
 
