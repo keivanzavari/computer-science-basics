@@ -1,5 +1,6 @@
 #include <utility>
 
+#include "shortest_path.h"
 #include "weighted_graph_definitions.h"
 
 void testLine() {
