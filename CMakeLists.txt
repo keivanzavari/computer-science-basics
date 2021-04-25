@@ -23,3 +23,8 @@ add_executable(dfs_test
 graphs/graph_definitions.h
 graphs/linked_list.h
 graphs/test/dfs_test.cc)
+
+
+add_executable(dijkstra_test
+graphs/weighted_graph_definitions.h
+graphs/test/dijkstra_test.cc)
