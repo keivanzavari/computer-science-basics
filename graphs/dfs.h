@@ -3,6 +3,7 @@
 #include <stack>
 #include <unordered_map>
 
+#include "container_extension_functions.h"
 #include "graph_definitions.h"
 
 template <typename T>
@@ -33,13 +34,6 @@ void dfs(const AdjList<T>& graph, T start) {
   }
 
   std::cout << "parent: " << parent << "\n";
-}
-
-template <typename T>
-bool contains(const std::vector<T>& vec, T val) {
-  const auto it = std::find(vec.begin(), vec.end(), val);
-  if (it == vec.end()) return false;
-  return true;
 }
 
 // DFS can also be implemented using a stack. This implementation replaces the queue implementation of BFS with a stack.
