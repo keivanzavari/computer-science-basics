@@ -1,8 +1,9 @@
 from typing import Optional
 import copy
+
 # An array, visualized as a nearly complete binary tree
 # No pointers required! Height of a binary heap is O(lg n)
-
+#
 #                  [0]
 #              /        \
 #            /           \
