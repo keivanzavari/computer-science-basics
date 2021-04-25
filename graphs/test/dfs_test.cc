@@ -78,7 +78,12 @@ void testCyclicGraph() {
   Graph<char> g(directed);
   char vertices[] = {'A', 'B', 'C', 'D', 'E', 'F'};
   std::vector<std::pair<char, char>> edges{{'A', 'B'}, {'B', 'C'}, {'C', 'E'}, {'E', 'D'}, {'D', 'B'}, {'E', 'F'}};
-
+  /**
+   * A -> B -> C -> E -> F
+   *      ^         |
+   *      |
+   *      -- D <-  |
+   */
   for (const auto e : edges) {
     g.addEdge(e.first, e.second);
   }
