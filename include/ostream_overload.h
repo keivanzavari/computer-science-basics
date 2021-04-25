@@ -44,3 +44,13 @@ std::ostream &operator<<(std::ostream &os, const std::set<T> &container) {
   os << "}";
   return os;
 }
+
+template <typename T, typename S>
+std::ostream &operator<<(std::ostream &os, const std::set<T, S> &container) {
+  os << "{";
+  for (const auto &v : container) {
+    os << v << ", ";
+  }
+  os << "}";
+  return os;
+}
