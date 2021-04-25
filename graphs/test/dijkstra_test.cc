@@ -3,20 +3,23 @@
 #include "shortest_path.h"
 #include "weighted_graph_definitions.h"
 
-void testLine() {
+void testDijkstra() {
   constexpr bool directed = true;
   Graph<char, int> g(directed);
-  char vertices[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'};
-  std::vector<std::pair<char, char>> edges{{'a', 'b'}, {'b', 'c'}, {'c', 'd'}, {'d', 'e'},
-                                           {'e', 'f'}, {'f', 'g'}, {'g', 'h'}, {'h', 'i'}};
+  char vertices[] = {'a', 'b', 'c', 'd', 'e'};
+  std::vector<Edge<char, int>> edges{{'a', 'b', 10}, {'a', 'c', 3}, {'c', 'b', 4}, {'b', 'c', 1}, {'b', 'd', 2},
+                                     {'c', 'd', 8},  {'c', 'e', 2}, {'d', 'e', 7}, {'e', 'd', 9}};
 
   for (const auto& e : edges) {
-    g.addEdge(e.first, e.second, 1);
+    g.addEdge(e.from, e.to, e.weight);
   }
   g.print();
+
+  auto path = dijkstra(g.get(), 'a');
+  std::cout << "path: " << path << "\n";
 }
 
 int main() {
-  testLine();
+  testDijkstra();
   return 0;
 }
