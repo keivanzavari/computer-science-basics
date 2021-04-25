@@ -16,8 +16,6 @@ struct Edge {
   N from;
   N to;
   W weight;
-
-  bool operator<(const Edge &rhs) const { return to < rhs.to; }
 };
 
 template <typename N, typename W>
@@ -26,8 +24,17 @@ std::ostream &operator<<(std::ostream &os, const Edge<N, W> &edge) {
   return os;
 }
 
+template <typename N, typename W>
+struct EdgeCmp {
+  // It is not really possible to define a less comparison function for two edges. However, we are interested in
+  // keeping the O(lg n) complexity of finding elements in a set, and edges are defines as a sorted list. This sorted
+  // list is then used for searching through all the nodes connected to one specific node and hence, we will sort based
+  // on the destination.
+  bool operator()(const Edge<N, W> &lhs, const Edge<N, W> &rhs) const { return lhs.to < rhs.to; }
+};
+
 template <typename NodeType, typename WeightType>
-using Edges = std::set<Edge<NodeType, WeightType>>;
+using Edges = std::set<Edge<NodeType, WeightType>, EdgeCmp<NodeType, WeightType>>;
 
 template <typename NodeType, typename WeightType>
 using AdjList = std::unordered_map<NodeType, Edges<NodeType, WeightType>>;
