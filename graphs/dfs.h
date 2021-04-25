@@ -67,3 +67,9 @@ std::vector<T> dfsWithStack(const AdjList<T>& graph) {
   std::cout << "finished: " << finished << "\n";
   return finished;
 }
+
+// Topological sort:
+// 1 call DFS(G) to compute finishing times v.f for each vertex v
+// 2 as each vertex is finished, insert it onto the front of a linked list
+// 3 return the linked list of vertices
+// Reverse finished up here to get topological sort
