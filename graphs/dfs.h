@@ -64,7 +64,6 @@ std::vector<T> dfsWithStack(const AdjList<T>& graph) {
     }
   }
 
-  std::cout << "finished: " << finished << "\n";
   return finished;
 }
 

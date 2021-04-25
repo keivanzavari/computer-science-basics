@@ -73,7 +73,23 @@ void testLine() {
   std::cout << "out: " << out << "\n";
 }
 
+void testCyclicGraph() {
+  constexpr bool directed = true;
+  Graph<char> g(directed);
+  char vertices[] = {'A', 'B', 'C', 'D', 'E', 'F'};
+  std::vector<std::pair<char, char>> edges{{'A', 'B'}, {'B', 'C'}, {'C', 'E'}, {'E', 'D'}, {'D', 'B'}, {'E', 'F'}};
+
+  for (const auto e : edges) {
+    g.addEdge(e.first, e.second);
+  }
+
+  // In a cyclic graph, the order of finishing vertices is no longer as a DAG.
+  // Vertex C is finished vertex B even though there is an edge from B to C.
+  auto out = dfsWithStack(g.get());
+  std::cout << "out: " << out << "\n";
+}
+
 int main() {
-  testDag();
+  testCyclicGraph();
   return 0;
 }
