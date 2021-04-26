@@ -7,6 +7,11 @@ include_directories(graphs)
 include_directories(include)
 include_directories(sorting)
 
+find_package( Threads )
+
+add_executable(condition_variable multithreading/condition_variable.cc)
+target_link_libraries(condition_variable ${CMAKE_THREAD_LIBS_INIT})
+
 add_executable(linked_list_test
         graphs/graph_definitions.h
         graphs/linked_list.h
