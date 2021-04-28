@@ -4,6 +4,14 @@
 
 #include "weighted_graph_definitions.h"
 
+template <typename N, typename W>
+struct ShortestPath {
+  N from;
+  N to;
+  std::vector<N> path;
+  W distance;
+};
+
 /**
  *  INITIALIZE-SINGLE-SOURCE(G, start)
  *    for each vertex v in G
