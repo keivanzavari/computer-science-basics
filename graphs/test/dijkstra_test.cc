@@ -3,6 +3,14 @@
 #include "shortest_path.h"
 #include "weighted_graph_definitions.h"
 
+template <typename N, typename W>
+struct ShortestPath {
+  N from;
+  N to;
+  std::vector<N> path;
+  W distance;
+};
+
 void testDijkstra() {
   constexpr bool directed = true;
   Graph<char, int> g(directed);
