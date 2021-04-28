@@ -26,7 +26,7 @@ void initialize(const AdjList<N, W>& graph, N start, std::unordered_map<N, W>& d
   distances.clear();
   parents.clear();
   for (const auto& el : graph) {
-    distances[el.first] = std::numeric_limits<W>::infinity();
+    distances[el.first] = std::numeric_limits<W>::max();
     parents[el.first] = N(0);
   }
   distances[start] = W(0);
