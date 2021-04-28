@@ -8,7 +8,7 @@ template <typename N, typename W>
 struct ShortestPath {
   N from;
   N to;
-  std::vector<N> path;
+  std::vector<N> vertices;
   W distance;
 };
 
@@ -78,9 +78,10 @@ ShortestPath<N, W> getShortestPath(const AdjList<N, W>& graph, N from, N to) {
   shortest_path.distance = distances.at(to);
   auto vertex = to;
   while (vertex != from) {
-    shortest_path.path.push_back(vertex);
+    shortest_path.vertices.push_back(vertex);
     vertex = parents.at(vertex);
   }
+  shortest_path.vertices.push_back(vertex);
   return shortest_path;
 }
 // Belman-Ford

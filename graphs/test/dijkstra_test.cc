@@ -24,6 +24,7 @@ void testDijkstra() {
 
   const auto path = getShortestPath(g.get(), 'a', 'e');
   assert(path.distance == shortest_paths[2].distance);
+  std::cout << "path from a to e goes through " << path.vertices << "\n";
 }
 
 int main() {
