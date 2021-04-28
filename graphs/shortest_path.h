@@ -33,9 +33,8 @@ void initialize(const AdjList<N, W>& graph, N start, std::unordered_map<N, W>& d
 }
 
 template <typename N, typename W>
-std::vector<N> dijkstra(const AdjList<N, W>& graph, N start) {
-  std::unordered_map<N, W> distances;
-  std::unordered_map<N, N> parents;
+void dijkstra(const AdjList<N, W>& graph, const N start, std::unordered_map<N, W>& distances,
+              std::unordered_map<N, N>& parents) {
   std::vector<N> determined{};
   initialize(graph, start, distances, parents);
 
@@ -65,7 +64,7 @@ std::vector<N> dijkstra(const AdjList<N, W>& graph, N start) {
   }
 
   std::cout << "distances: " << distances << "\n";
-  return determined;
+  std::cout << "parents: " << parents << "\n";
 }
 
 // Belman-Ford
