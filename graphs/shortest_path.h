@@ -11,12 +11,7 @@
  *      v.parent = NIL
  *    start.distance = 0
  *
- *  RELAX (u, v, w)
- *    if v.distance > u.distance + w(u,v)
- *      v.distance = u.distance + w(u,v)
- *      v.parent = u
  */
-
 template <typename N, typename W>
 void initialize(const AdjList<N, W>& graph, N start, std::unordered_map<N, W>& distances,
                 std::unordered_map<N, N>& parents) {
@@ -48,10 +43,12 @@ std::vector<N> dijkstra(const AdjList<N, W>& graph, N start) {
     for (const auto& edge : graph.at(u)) {
       auto v = edge.to;
       auto w = edge.weight;
-      // Relax(u,v,w)
-      // *    if v.distance > u.distance + w(u,v)
-      // *      v.distance = u.distance + w(u,v)
-      // *      v.parent = u
+      /**
+       * Relax(u,v,w)
+       * if v.distance > u.distance + w(u,v)
+       *   v.distance = u.distance + w(u,v)
+       *   v.parent = u
+       */
       if (distances.at(v) > distances.at(u) + w) {
         distances[v] = distances.at(u) + w;
         parents[v] = u;
