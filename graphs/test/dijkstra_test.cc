@@ -25,6 +25,12 @@ void testDijkstra() {
 
   auto path = dijkstra(g.get(), 'a');
   std::cout << "path: " << path << "\n";
+
+  std::vector<ShortestPath<char, int>> shorest_paths;
+  shorest_paths.push_back({'a', 'b', {'a', 'c', 'b'}, 7});
+  shorest_paths.push_back({'a', 'c', {'a', 'c'}, 3});
+  shorest_paths.push_back({'a', 'e', {'a', 'c', 'e'}, 5});
+  shorest_paths.push_back({'a', 'd', {'a', 'c', 'b', 'd'}, 9});
 }
 
 int main() {
