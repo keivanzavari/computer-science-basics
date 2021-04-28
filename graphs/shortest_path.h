@@ -35,7 +35,7 @@ void initialize(const AdjList<N, W>& graph, N start, std::unordered_map<N, W>& d
 template <typename N, typename W>
 void dijkstra(const AdjList<N, W>& graph, const N start, std::unordered_map<N, W>& distances,
               std::unordered_map<N, N>& parents) {
-  std::vector<N> determined{};
+  // std::vector<N> determined{};
   initialize(graph, start, distances, parents);
 
   std::priority_queue<N, std::vector<N>, std::greater<N>> min_heap;
@@ -43,10 +43,10 @@ void dijkstra(const AdjList<N, W>& graph, const N start, std::unordered_map<N, W
     min_heap.push(el.first);
   }
   while (!min_heap.empty()) {
-    std::cout << determined << "\n";
+    // std::cout << "determined: " << determined << "\n";
     auto u = min_heap.top();
     min_heap.pop();
-    determined.push_back(u);
+    // determined.push_back(u);
     for (const auto& edge : graph.at(u)) {
       auto v = edge.to;
       auto w = edge.weight;
@@ -62,9 +62,6 @@ void dijkstra(const AdjList<N, W>& graph, const N start, std::unordered_map<N, W
       }
     }
   }
-
-  std::cout << "distances: " << distances << "\n";
-  std::cout << "parents: " << parents << "\n";
 }
 
 // Belman-Ford
