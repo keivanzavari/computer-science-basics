@@ -1,3 +1,4 @@
+#include <cassert>
 #include <utility>
 
 #include "shortest_path.h"
@@ -15,14 +16,14 @@ void testDijkstra() {
   }
   g.print();
 
-  auto path = dijkstra(g.get(), 'a');
-  std::cout << "path: " << path << "\n";
+  std::vector<ShortestPath<char, int>> shortest_paths;
+  shortest_paths.push_back({'a', 'b', {'a', 'c', 'b'}, 7});
+  shortest_paths.push_back({'a', 'c', {'a', 'c'}, 3});
+  shortest_paths.push_back({'a', 'e', {'a', 'c', 'e'}, 5});
+  shortest_paths.push_back({'a', 'd', {'a', 'c', 'b', 'd'}, 9});
 
-  std::vector<ShortestPath<char, int>> shorest_paths;
-  shorest_paths.push_back({'a', 'b', {'a', 'c', 'b'}, 7});
-  shorest_paths.push_back({'a', 'c', {'a', 'c'}, 3});
-  shorest_paths.push_back({'a', 'e', {'a', 'c', 'e'}, 5});
-  shorest_paths.push_back({'a', 'd', {'a', 'c', 'b', 'd'}, 9});
+  const auto path = getShortestPath(g.get(), 'a', 'e');
+  assert(path.distance == shortest_paths[2].distance);
 }
 
 int main() {
