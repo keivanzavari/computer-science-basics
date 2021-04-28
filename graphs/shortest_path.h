@@ -32,6 +32,16 @@ void initialize(const AdjList<N, W>& graph, N start, std::unordered_map<N, W>& d
   distances[start] = W(0);
 }
 
+/**
+ * @brief
+ *
+ * @tparam N template parameter for vertex type
+ * @tparam W template parameter for weight type
+ * @param graph adjacency list representing a directed weighted graph
+ * @param start start vertex for dijkstra algorithm
+ * @param distances a dictionary of all the shortest distances from the start vertex
+ * @param parents a dictionary of all the parents for the shortest path starting from start vertex
+ */
 template <typename N, typename W>
 void dijkstra(const AdjList<N, W>& graph, const N start, std::unordered_map<N, W>& distances,
               std::unordered_map<N, N>& parents) {
