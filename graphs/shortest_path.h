@@ -64,4 +64,23 @@ void dijkstra(const AdjList<N, W>& graph, const N start, std::unordered_map<N, W
   }
 }
 
+template <typename N, typename W>
+ShortestPath<N, W> getShortestPath(const AdjList<N, W>& graph, N from, N to) {
+  std::unordered_map<N, W> distances;
+  std::unordered_map<N, N> parents;
+  dijkstra(graph, from, distances, parents);
+  if (parents.empty() || distances.empty()) {
+    throw std::runtime_error("Failed to find a path!");
+  }
+  ShortestPath<N, W> shortest_path;
+  shortest_path.from = from;
+  shortest_path.to = to;
+  shortest_path.distance = distances.at(to);
+  auto vertex = to;
+  while (vertex != from) {
+    shortest_path.path.push_back(vertex);
+    vertex = parents.at(vertex);
+  }
+  return shortest_path;
+}
 // Belman-Ford
