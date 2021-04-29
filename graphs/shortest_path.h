@@ -48,13 +48,14 @@ void dijkstra(const AdjList<N, W>& graph, const N start, std::unordered_map<N, W
   // std::vector<N> determined{};
   initialize(graph, start, distances, parents);
 
-  std::priority_queue<N, std::vector<N>, std::greater<N>> min_heap;
-  for (const auto& el : graph) {
-    min_heap.push(el.first);
-  }
+  std::pair<W, N> node_distance;
+  auto compare = [](const std::pair<W, N>& left, const std::pair<W, N>& right) { return left.first > right.first; };
+  std::priority_queue<std::pair<W, N>, std::vector<std::pair<W, N>>, decltype(compare)> min_heap(compare);
+  min_heap.push({W(0), start});
   while (!min_heap.empty()) {
     // std::cout << "determined: " << determined << "\n";
-    auto u = min_heap.top();
+    auto pair = min_heap.top();
+    auto u = pair.second;
     min_heap.pop();
     // determined.push_back(u);
     for (const auto& edge : graph.at(u)) {
@@ -69,9 +70,12 @@ void dijkstra(const AdjList<N, W>& graph, const N start, std::unordered_map<N, W
       if (distances.at(v) > distances.at(u) + w) {
         distances[v] = distances.at(u) + w;
         parents[v] = u;
+        min_heap.push({distances[v], v});
       }
     }
   }
+
+  std::cout << "distances: " << distances << "\n";
 }
 
 template <typename N, typename W>
