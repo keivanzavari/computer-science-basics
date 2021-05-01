@@ -1,8 +1,10 @@
 #pragma once
 
 #include <iostream>
+#include <limits>
 #include <map>
 #include <memory>
+#include <optional>
 #include <set>
 #include <string>
 #include <unordered_map>
@@ -15,7 +17,7 @@ template <typename N, typename W>
 struct Edge {
   N from;
   N to;
-  W weight;
+  std::optional<W> weight;
 };
 
 template <typename N, typename W>
@@ -42,7 +44,7 @@ using AdjList = std::unordered_map<NodeType, Edges<NodeType, WeightType>>;
 template <typename N, typename W>
 class Graph {
  public:
-  explicit Graph(bool directed = false) : directed_{directed} {}
+  explicit Graph(bool directed = false, bool weighted = true) : directed_{directed}, weighted_{weighted} {}
 
   bool addVertex(N vertex_name) {
     if (!graph_.contains(vertex_name)) {
@@ -52,7 +54,7 @@ class Graph {
     return false;
   }
 
-  bool addEdge(N from, N to, W weight) {
+  bool addEdge(N from, N to, std::optional<W> weight = {}) {
     if (!graph_.contains(from)) {
       addVertex(from);
     }
@@ -66,6 +68,8 @@ class Graph {
 
     return true;
   }
+
+  bool isWeighted() const { return weighted_; }
 
   void print() const {
     std::cout << "--------\n";
@@ -81,4 +85,5 @@ class Graph {
  private:
   AdjList<N, W> graph_;
   const bool directed_;
+  const bool weighted_;
 };
