@@ -14,14 +14,8 @@
 template <typename T>
 using Edges = std::set<T>;
 
-using WeightType = int;
-template <typename T>
-using WeightedEdges = std::set<std::tuple<T, WeightType>>;
 template <typename T>
 using AdjList = std::unordered_map<T, Edges<T>>;
-
-template <typename T>
-using AdjListWeighted = std::unordered_map<T, WeightedEdges<T>>;
 
 // Graph implementation using adjacency list.
 template <typename T>
