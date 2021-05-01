@@ -60,7 +60,7 @@ void dijkstra(const AdjList<N, W>& graph, const N start, std::unordered_map<N, W
     // determined.push_back(u);
     for (const auto& edge : graph.at(u)) {
       auto v = edge.to;
-      auto w = edge.weight;
+      auto w = edge.weight.value();
       /**
        * Relax(u,v,w)
        * if v.distance > u.distance + w(u,v)

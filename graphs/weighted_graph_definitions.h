@@ -22,7 +22,7 @@ struct Edge {
 
 template <typename N, typename W>
 std::ostream &operator<<(std::ostream &os, const Edge<N, W> &edge) {
-  os << "(" << edge.from << "->" << edge.to << ", " << edge.weight << ")";
+  os << "(" << edge.from << "->" << edge.to << ", " << edge.weight.value() << ")";
   return os;
 }
 
