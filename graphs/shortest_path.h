@@ -41,6 +41,13 @@ void initialize(const AdjList<N, W>& graph, N start, std::unordered_map<N, W>& d
  * @param start start vertex for dijkstra algorithm
  * @param distances a dictionary of all the shortest distances from the start vertex
  * @param parents a dictionary of all the parents for the shortest path starting from start vertex
+ *
+ *
+ * The cost of this algorithm is everything since it determines which node will come out of the priority queue.
+ *
+ *
+ * In greedy best search, instead of distance we use a heuristic function which is the distance to the target.
+ * In A*, this idea is improved and we use this heuristic function + the distance so far.
  */
 template <typename N, typename W>
 void dijkstra(const AdjList<N, W>& graph, const N start, std::unordered_map<N, W>& distances,
