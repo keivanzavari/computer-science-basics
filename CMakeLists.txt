@@ -33,3 +33,9 @@ graphs/test/dfs_test.cc)
 add_executable(dijkstra_test
 graphs/weighted_graph_definitions.h
 graphs/test/dijkstra_test.cc)
+
+
+add_executable(dot_writer_test
+graphs/weighted_graph_definitions.h
+graphs/dot_writer.h
+graphs/test/dot_writer_test.cc)
