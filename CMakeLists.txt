@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 include_directories(graphs)
 include_directories(include)
+include_directories(dynamic_programming)
 include_directories(sorting)
 
 find_package( Threads )
@@ -39,3 +40,10 @@ add_executable(dot_writer_test
 graphs/weighted_graph_definitions.h
 graphs/dot_writer.h
 graphs/test/dot_writer_test.cc)
+
+
+add_executable(greedy_text_justification_test
+dynamic_programming/common.h
+dynamic_programming/greedy_text_justification.h
+dynamic_programming/tests/greedy_text_justification_test.cc
+)
