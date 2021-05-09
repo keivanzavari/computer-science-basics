@@ -6,15 +6,15 @@
 
 #include "../include/ostream_overload.h"
 
-using Line = std::vector<int>;
-using Lines = std::vector<Line>;
+using List = std::vector<int>;
+using Matrix = std::vector<List>;
 
 using Word = std::string;
 enum class CostOrder { ONE, TWO, THREE };
 
 namespace common {
 
-void printLine(const std::vector<Word> &words, const Line &indices) {
+void printLine(const std::vector<Word> &words, const List &indices) {
   for (const auto &idx : indices) {
     std::cout << words.at(idx) << " ";
   }
@@ -28,7 +28,7 @@ void printLine(const std::vector<Word> &words, const Line &indices) {
  * @param indices indices of the words that are placed after each other.
  * @return int
  */
-int calcFilledLength(const std::vector<Word> &words, const Line &indices) {
+int calcFilledLength(const std::vector<Word> &words, const List &indices) {
   int filled_length = 0;
   for (const auto &idx : indices) {
     filled_length += words.at(idx).length();
@@ -40,7 +40,7 @@ int calcFilledLength(const std::vector<Word> &words, const Line &indices) {
   return filled_length;
 }
 
-static int calcLineUnfilledLength(const std::vector<Word> &words, const Line &indices_of_line, int line_length) {
+static int calcLineUnfilledLength(const std::vector<Word> &words, const List &indices_of_line, int line_length) {
   int filled_length = calcFilledLength(words, indices_of_line);
   return line_length - filled_length;
 }
@@ -51,7 +51,7 @@ static int calcLineUnfilledLength(const std::vector<Word> &words, const Line &in
  * @param words all the words that need to be justified.
  * @param indices the solution.
  */
-std::vector<int> calcCost(const std::vector<Word> &words, const Lines &indices_of_all_lines, const int line_length,
+std::vector<int> calcCost(const std::vector<Word> &words, const Matrix &indices_of_all_lines, const int line_length,
                           const CostOrder &order) {
   // go through all the lines.
   // for each line calculate the number of unfilled spaces, i.e. the spaces that a line has left without filling it up

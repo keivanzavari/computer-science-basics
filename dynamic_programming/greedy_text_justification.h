@@ -23,13 +23,13 @@
  */
 namespace greedy {
 
-Lines justify(const std::vector<Word> &words, const int line_length) {
+Matrix justify(const std::vector<Word> &words, const int line_length) {
   if (words.empty() || line_length == 0) {
     return {};
   }
 
-  Line current_line;
-  Lines lines;
+  List current_line;
+  Matrix lines;
   int idx = 0;
   int current_line_length = 0;
   for (int idx = 0; idx < words.size(); ++idx) {
