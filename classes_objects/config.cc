@@ -6,6 +6,7 @@
 #include <variant>
 #include <vector>
 
+#include "../include/ostream_overload.h"
 #include "../include/string_operators.h"
 /**
  * How to make a generic config like dictionary in C++.
@@ -14,16 +15,6 @@
  * and get with user.name, user.age
  *
  */
-
-template <typename T>
-std::ostream &operator<<(std::ostream &os, const std::vector<T> &vec) {
-  os << "[";
-  for (const auto &v : vec) {
-    os << v << " ";
-  }
-  os << "]";
-  return os;
-}
 
 template <typename K, typename V>
 bool contains(const std::map<K, V> &container, const K &key) {
