@@ -57,9 +57,7 @@ bool searchMatrix(const std::vector<std::vector<int>>& matrix, int target) {
 
     int row_idx = idx / col_size;
     int col_idx = idx % col_size;
-    // if (col_size == 1) {
-    //   row_idx = idx;
-    // }
+
     mid_value = matrix[row_idx][col_idx];
     std::cout << "idx: " << idx << "\t"
               << "row idx: " << row_idx << "\t"
@@ -82,6 +80,8 @@ int main() {
 
   auto res = searchMatrix(mat, 0);
   std::cout << std::boolalpha << res << "\n";
+
+  // To test linear index conversion to 2D conversion.
   // int idx = 3;
   // int num_rows = 3;
   // int num_cols = 5;
