@@ -108,7 +108,7 @@ void addZerosToTheEnd(std::string& num, int how_many) {
 std::string multiply(const std::string& a, const std::string& b) {
   if (a == "1") return b;
   if (b == "1") return a;
-  // int longer_length = a.length() >= b.length() ? a.length() : b.length();
+  if (a[0] == '0' || b[0] == '0') return "0";
   std::string final_res = "";
   for (int idx_a = a.length() - 1; idx_a >= 0; --idx_a) {
     std::string res_b = "";
@@ -121,7 +121,7 @@ std::string multiply(const std::string& a, const std::string& b) {
       carry = res / 10;
       res = res % 10;
       res_b = char(res + 48) + res_b;
-      // std::cout << "res b: " << res_b << ", carry " << carry << "\n";
+      std::cout << "res b: " << res_b << ", carry " << carry << "\n";
     }
     if (carry != 0) res_b = char(carry + 48) + res_b;
     std::cout << "res b before: " << res_b << "\n";
@@ -129,7 +129,9 @@ std::string multiply(const std::string& a, const std::string& b) {
     std::cout << "res b after: " << res_b << "\n";
 
     std::cout << "res_b before: " << res_b << "\n";
-    addZerosToTheEnd(res_b, a.length() - idx_a - 1);
+    if (res_b != "0") {
+      addZerosToTheEnd(res_b, a.length() - idx_a - 1);
+    }
     std::cout << "res_b after: " << res_b << "\n";
 
     final_res = sum(res_b, final_res);
@@ -138,8 +140,8 @@ std::string multiply(const std::string& a, const std::string& b) {
 }
 
 int main() {
-  std::string a = "123";
-  std::string b = "430";
+  std::string a = "5";
+  std::string b = "408";
 
   auto res = multiply(b, a);
   std::cout << "mult: " << res << "\n";
