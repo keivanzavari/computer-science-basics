@@ -3,13 +3,15 @@
 
 #include "../include/ostream_overload.h"
 
-template <typename T> void swap(T &a, T &b) {
+template <typename T>
+void swap(T &a, T &b) {
   T tmp = a;
   a = b;
   b = tmp;
 }
 
-template <typename T> void sort(std::vector<T> &vec) {
+template <typename T>
+void sort(std::vector<T> &vec) {
   int n = vec.size();
   bool swapped = true;
   while (swapped) {
@@ -20,7 +22,7 @@ template <typename T> void sort(std::vector<T> &vec) {
         swapped = true;
       }
     }
-    // This is an optimization step of bubble sort. So not strictly need for the
+    // This is an optimization step of bubble sort. So not strictly needed for the
     // algorithm to work.
     n--;
   }
