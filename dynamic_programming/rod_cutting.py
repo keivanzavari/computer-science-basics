@@ -1,5 +1,10 @@
 from typing import Dict, List
 
+# Problem:
+# Given a rod of length n and a # table of prices p[i] for i in [1, 2, ..., n] determine the maximum revenue r[n]
+# obtainable by cutting up the rod and selling the pieces. Note that if the price p[n] for a rod of length n is
+# large enough, an optimal solution may require no cutting at all.
+
 
 # Following the natural formulation of
 # r_n = max (p_i + r_(n-i)) over 1 <= i <= n,
