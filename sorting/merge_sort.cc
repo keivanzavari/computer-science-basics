@@ -13,8 +13,8 @@ template <typename T>
 std::vector<T> merge(const std::vector<T> &vec1, const std::vector<T> &vec2) {
   std::size_t idx1 = 0;
   std::size_t idx2 = 0;
-  std::size_t smaller_vec_size =
-      (vec1.size() > vec2.size()) ? vec2.size() : vec1.size();
+  std::size_t smaller_vec_size = (vec1.size() > vec2.size()) ? vec2.size() : vec1.size();
+  std::cout << "called merge with vectors of size " << vec1.size() << ", " << vec2.size() << "\n";
   std::size_t idx_res = 0;
   std::vector<T> res(vec1.size() + vec2.size());
   while (idx1 < vec1.size() && idx2 < vec2.size()) {
@@ -33,9 +33,8 @@ std::vector<T> merge(const std::vector<T> &vec1, const std::vector<T> &vec2) {
   return res;
 }
 
-template <typename T> //, typename Iterator>
-std::vector<T> sort(const std::vector<T> &vec, std::size_t begin,
-                    std::size_t end) {
+template <typename T>  //, typename Iterator>
+std::vector<T> sort(const std::vector<T> &vec, std::size_t begin, std::size_t end) {
   if (vec.empty()) {
     return {};
   }
@@ -53,7 +52,7 @@ std::vector<T> sort(const std::vector<T> &vec, std::size_t begin,
 }
 
 int main() {
-  std::vector<int> vec{10, 2, -1};
+  std::vector<int> vec{10, 2, 6, 5, 1, 8, -1};
   std::cout << "original vector: " << vec << "\n";
 
   auto sorted = sort(vec, 0, vec.size());
