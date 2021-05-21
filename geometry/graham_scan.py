@@ -1,7 +1,13 @@
 #! /usr/bin/env python3
 from typing import List, Tuple
 import matplotlib.pyplot as plt
-import math
+import sys
+import pathlib
+PARENT = pathlib.Path(__file__).parent.absolute().parent
+sys.path.insert(0, PARENT.as_posix())
+
+import lib.geometry
+from lib.point import Point
 
 # -----------------------------
 # Graham Scan algorithm
@@ -18,10 +24,6 @@ import math
 #     push point to stack
 # end
 # -----------------------------
-
-
-def are_almost_equal(val1: float, val2: float, absolute_error: float = 1e-6) -> bool:
-    return (abs(val1 - val2) <= abs(absolute_error))
 
 
 class Stack:
@@ -48,57 +50,8 @@ class Stack:
         return len(self.data)
 
 
-class Point:
-    def __init__(self, x: float = 0.0, y: float = 0.0):
-        self.x = x
-        self.y = y
-
-    def __lt__(self, other: "Point") -> bool:
-        if are_almost_equal(self.y, other.y):
-            return self.x < other.x
-        return self.y < other.y
-
-    def __eq__(self, other: "Point") -> bool:
-        return are_almost_equal(self.x, other.x) and are_almost_equal(self.y, other.y)
-
-    def __str__(self) -> str:
-        return f"({self.x}, {self.y})"
-
-    def __hash__(self) -> str:
-        return hash((self.x, self.y))
-
-    def __repr__(self) -> str:
-        return self.__str__()
-
-    def __add__(self, other: "Point"):
-        return Point(self.x + other.x, self.y + other.y)
-
-    def __sub__(self, other: "Point"):
-        return Point(self.x - other.x, self.y - other.y)
-
-
-def cross(point1: Point, point2: Point) -> Tuple[float, float, float]:
-    # homogeneous representation of a point is (x,y,1)
-    cross_x = point1.y - point2.y
-    cross_y = point2.x - point1.x
-    cross_z = point1.x * point2.y - point1.y * point2.x
-    return cross_x, cross_y, cross_z
-
-
-def get_distance(point1: Point, point2: Point) -> float:
-    diff = point1 - point2
-    return math.sqrt(diff.x * diff.x + diff.y * diff.y)
-
-
-def get_angle(point1: Point, point2: Point) -> float:
-    # the line through two points is L=p cross p'
-    # ax+by+c=0
-    a, b, _ = cross(point1, point2)
-    return math.atan2(-a, b)
-
-
 def test_sorting_based_on_polar_angle(points: List[Point]) -> None:
-    sorted_points = sorted(points[1:], key=lambda p: get_angle(points[0], p))
+    sorted_points = sorted(points[1:], key=lambda p: lib.geometry.get_angle(points[0], p))
 
     idx = 1
     margin = 0.2
@@ -109,7 +62,7 @@ def test_sorting_based_on_polar_angle(points: List[Point]) -> None:
     # The numbers should appear in ascending order with respect to the angle they make with point zero.
 
 
-def compute_ccw(point1: Point, point2: Point, point3: Point):
+def compute_ccw(point1: Point, point2: Point, point3: Point) -> float:
     """
     Determining whether three points constitute a "left turn" or a "right turn" does not require computing
     the actual angle between the two line segments, and can actually be achieved with simple arithmetic only.
@@ -120,7 +73,7 @@ def compute_ccw(point1: Point, point2: Point, point3: Point):
     "left turn" or counter-clockwise orientation, otherwise a "right turn" or clockwise orientation
     (for counter-clockwise numbered points).
     """
-    _, _, res = cross(point2 - point1, point3 - point1)
+    _, _, res = lib.geometry.cross(point2 - point1, point3 - point1)
 
     return res
 
@@ -158,7 +111,7 @@ if __name__ == "__main__":
 
     points = generate_random_points(20, Range(-5, 5))
     move_left_bottom_to_first(points)
-    sorted_points = sorted(points[1:], key=lambda p: get_angle(points[0], p))
+    sorted_points = sorted(points[1:], key=lambda p: lib.geometry.get_angle(points[0], p))
     sorted_points.insert(0, points[0])
 
     stack = Stack()
