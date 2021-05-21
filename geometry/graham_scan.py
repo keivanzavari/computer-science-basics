@@ -8,6 +8,7 @@ sys.path.insert(0, PARENT.as_posix())
 
 import lib.geometry
 from lib.point import Point
+from lib.limits import Range
 
 # -----------------------------
 # Graham Scan algorithm
@@ -76,12 +77,6 @@ def compute_ccw(point1: Point, point2: Point, point3: Point) -> float:
     _, _, res = lib.geometry.cross(point2 - point1, point3 - point1)
 
     return res
-
-
-class Range:
-    def __init__(self, lo: float, hi: float) -> None:
-        self.lo = lo
-        self.hi = hi
 
 
 def generate_random_points(num_points: int, points_range: Range) -> List[Point]:
