@@ -1,3 +1,4 @@
+from random import random
 from typing import List
 import numpy as np
 import matplotlib.pyplot as plt
@@ -31,9 +32,41 @@ def generate_random_points(num_points: int) -> List[Point]:
     return points
 
 
+def generate_polygon(num_vertices: int, convex: bool = True) -> List[Point]:
+    r = Range(0, 10)
+    if num_vertices == 3:
+        return [Point(r.lo, r.lo), Point(r.hi, r.lo), Point(r.lo, r.hi)]
+    if num_vertices == 4:
+        if convex:
+            return [Point(r.lo, r.lo), Point(r.hi, r.lo), Point(r.hi, r.hi), Point(r.lo, r.hi)]
+        else:
+            return [Point(r.lo, r.lo), Point(r.hi, r.lo), Point(r.lo, r.hi), Point(r.hi, r.hi)]
+
+    if num_vertices == 5:
+        if convex:
+            return [
+                Point(r.hi * 0.3, r.hi * 0.15),
+                Point(r.hi, r.hi * 0.4),
+                Point(r.hi, r.hi * 0.8),
+                Point(r.hi * 0.5, r.hi),
+                Point(r.hi * 0.05, r.hi * 0.5)
+            ]
+        else:
+            return [
+                Point(r.hi, r.hi * 0.4),
+                Point(r.hi * 0.5, r.hi),
+                Point(r.hi * 0.3, r.hi * 0.15),
+                Point(r.hi, r.hi * 0.8),
+                Point(r.hi * 0.05, r.hi * 0.5)
+            ]
+
+    return []
+
+
 if __name__ == "__main__":
-    points = generate_random_points(5)
+    points = generate_polygon(5, False)
     random_polygon = Polygon(points)
+    print(points)
 
     arr = to_array(random_polygon)
     matplotlib_polygon = pt.Polygon(arr)
@@ -43,7 +76,6 @@ if __name__ == "__main__":
     patches = mc.PatchCollection([matplotlib_polygon], alpha=0.4)
     patches.set_array(colors)
     ax.add_collection(patches)
-    # fig.colorbar(patches, ax=ax)
-    print(arr)
     plt.plot(0, 0)
-    plt.show()
+    # plt.show()
+    random_polygon.is_convex()
