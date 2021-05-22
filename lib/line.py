@@ -9,6 +9,9 @@ import lib.math_utils
 
 class Line:
     def __init__(self, point_a: Point, point_b: Point) -> None:
+        if point_a == point_b:
+            raise ValueError("Two points are the same. No line can be constructed.")
+
         self.a, self.b, self.c = lib.geometry.cross(point_a, point_b)
 
     def are_on_the_same_side(self, point_1: Point, point_2: Point) -> bool:
