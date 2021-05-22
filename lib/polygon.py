@@ -36,7 +36,7 @@ class Polygon:
         if self.is_outside_limits(point):
             return False
 
-        edges = self.getEdges()
+        edges = self.get_edges()
         count_intersections = 0
         for edge in edges:
             if edge.intersects_with_horizontal_line(point.y):
@@ -53,7 +53,7 @@ class Polygon:
                point.y < self.min_point.y or \
                point.y > self.max_point.y
 
-    def getEdges(self) -> List[LineSegment]:
+    def get_edges(self) -> List[LineSegment]:
         edges: List[LineSegment] = []
 
         for idx in range(len(self.vertices) - 1):
