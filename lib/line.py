@@ -18,11 +18,9 @@ class Line:
         return np.sign(self.a * point_1.x + self.b * point_1.y + self.c) == np.sign(self.a * point_2.x +
                                                                                     self.b * point_2.y + self.c)
 
-    def normalize(self) -> None:
+    def normalize(self) -> Tuple[float, float, float]:
         sqrt_abc = np.sqrt(self.a * self.a + self.b * self.b + self.c * self.c)
-        self.a /= sqrt_abc
-        self.b /= sqrt_abc
-        self.c /= sqrt_abc
+        return (self.a / sqrt_abc, self.b / sqrt_abc, self.c / sqrt_abc)
 
     def as_tuple(self) -> Tuple[float, float, float]:
         return (self.a, self.b, self.c)
