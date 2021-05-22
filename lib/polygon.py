@@ -63,6 +63,20 @@ class Polygon:
 
         return edges
 
+    def is_self_intersecting(self) -> bool:
+        # The edges should only intersect at vertices
+        edges = self.get_edges()
+        for idx in range(len(self.vertices)):
+            # edge 0 is between vertex 0 and vertex 1
+            # edge 1 is between vertex 1 and vertex 2
+            # edge 0 and edge 1 should only intersect at vertex 1
+            idx1 = (idx + 1) % len(self.vertices)
+            intersection = lib.line.compute_intersection(edges[idx], edges[idx1])
+            if intersection is not None:
+                if intersection != self.vertices[idx1]:
+                    return False
+        return True
+
     def _get_direction_from_three(self, point1: Point, point2: Point, point3: Point) -> int:
         vec1 = point2 - point1
         vec2 = point3 - point2
