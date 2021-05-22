@@ -109,4 +109,5 @@ class Polygon:
             if curr_direction != init_direction:
                 return False
 
-        return True
+        # If it is convex, check for self intersection.
+        return not self.is_self_intersecting()
