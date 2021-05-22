@@ -80,12 +80,13 @@ class Polygon:
         # go through the vertices
         # find out if going from one vertex to another requires left or right turn.
         # If they are all the same, it is convex.
+        # The number of angles is the same as the number of vertices.
         if len(self.vertices) == 3:
             return True
 
         init_direction = self._get_direction_from_three(self.vertices[0], self.vertices[1], self.vertices[2])
         print(f"initial direction {init_direction}")
-        for idx in range(1, len(self.vertices)):
+        for idx in range(1, len(self.vertices) + 2):
             idx1 = (idx + 1) % len(self.vertices)
             idx2 = (idx + 2) % len(self.vertices)
             curr_direction = self._get_direction_from_three(self.vertices[idx], self.vertices[idx1],
@@ -93,9 +94,5 @@ class Polygon:
             print(f"curr_direction {curr_direction}")
             if curr_direction != init_direction:
                 return False
-
-        curr_direction = self._get_direction_from_three(self.vertices[-2], self.vertices[-1], self.vertices[0])
-        if curr_direction != init_direction:
-            return False
 
         return True
