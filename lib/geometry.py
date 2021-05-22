@@ -12,6 +12,18 @@ def cross(point_1: Point, point_2: Point) -> Tuple[float, float, float]:
     return cross_x, cross_y, cross_z
 
 
+def cross3(vec_1: Tuple[float], vec_2: Tuple[float]) -> Tuple[float, float, float]:
+    # A 3d vector is represented as (x,y,z)
+    # vec_1.y vec_2.z - vec_1.z vec_2.y
+    # vec_1.z vec_2.x - vec_1.x vec_2.z
+    # vec_1.x vec_2.y - vec_1.y vec_2.x
+    # One can obviously do this with np.cross
+    cross_x = vec_1[1] * vec_2[2] - vec_1[2] * vec_2[1]
+    cross_y = vec_1[2] * vec_2[0] - vec_1[0] * vec_2[2]
+    cross_z = vec_1[0] * vec_2[1] - vec_1[1] * vec_2[0]
+    return cross_x, cross_y, cross_z
+
+
 def get_distance(point_1: Point, point_2: Point) -> float:
     diff = point_1 - point_2
     return math.sqrt(diff.x * diff.x + diff.y * diff.y)
