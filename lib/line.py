@@ -1,31 +1,58 @@
+from typing import Optional, Tuple
+import functools
+import numpy as np
+
 from lib.point import Point
+import lib.geometry
+import lib.math_utils
 
 
 class Line:
-    def __init__(self) -> None:
-        self.a = 0
-        self.b = 0
-        self.c = 0
+    def __init__(self, point_a: Point, point_b: Point) -> None:
+        self.a, self.b, self.c = lib.geometry.cross(point_a, point_b)
 
-    def are_on_the_same_side(point_1, point_2)->bool:
-        return True
+    def are_on_the_same_side(self, point_1: Point, point_2: Point) -> bool:
+        return np.sign(self.a * point_1.x + self.b * point_1.y + self.c) == np.sign(self.a * point_2.x +
+                                                                                    self.b * point_2.y + self.c)
+
+    def as_tuple(self) -> Tuple[float, float, float]:
+        return (self.a, self.b, self.c)
+
+
 class LineSegment:
-    def __init__(self, point1: Point, point2: Point):
-        self.a = point1
-        self.b = point2
+    def __init__(self, point_a: Point, point_b: Point):
+        self.point_a = point_a
+        self.point_b = point_b
 
     def intersects_with_horizontal_line(self, y: float) -> bool:
-        if (self.a.y > y and self.b.y > y):
+        if (self.point_a.y > y and self.point_b.y > y):
             return False
-        if (self.a.y < y and self.b.y < y):
+        if (self.point_a.y < y and self.point_b.y < y):
             return False
         return True
 
-def convert_to_line(line_segment: LineSegment) -> Line:
-    line = Line()
-    return line
 
-def do_intersect(line_segment_1: LineSegment, line_segment_2: LineSegment) -> bool:
-    line = convert_to_line(line_segment_1)
-    if (line.are_on_the_same_side(line_segment_2.a, line_segment_2.b))
-    return False
+def convert_to_line(line_segment: LineSegment) -> Line:
+    return Line(line_segment.point_a, line_segment.point_b)
+
+
+@functools.singledispatch
+def compute_intersection(_, __) -> Optional[Point]:
+    return None
+
+
+@compute_intersection.register
+def compute_intersection(line_1: Line, line_2: Line) -> Optional[Point]:
+    intersection = lib.geometry.cross3(line_1.as_tuple(), line_2.as_tuple())
+    if lib.math_utils.are_almost_equal(intersection[2], 0):
+        return None
+    return Point(intersection[0], intersection[1])
+
+
+@compute_intersection.register
+def compute_intersection(line_segment_1: LineSegment, line_segment_2: LineSegment) -> Optional[Point]:
+    line_1 = convert_to_line(line_segment_1)
+    if (line_1.are_on_the_same_side(line_segment_2.point_a, line_segment_2.point_b)):
+        return None
+    line_2 = convert_to_line(line_segment_2)
+    return compute_intersection(line_1, line_2)
