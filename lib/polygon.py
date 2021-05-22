@@ -2,7 +2,7 @@ from typing import List, Type
 import sys
 
 from lib.point import Point
-from lib.line import LineSegment
+import lib.line
 import lib.geometry
 import lib.math_utils
 
@@ -53,13 +53,13 @@ class Polygon:
                point.y < self.min_point.y or \
                point.y > self.max_point.y
 
-    def get_edges(self) -> List[LineSegment]:
-        edges: List[LineSegment] = []
+    def get_edges(self) -> List[lib.line.LineSegment]:
+        edges: List[lib.line.LineSegment] = []
 
         for idx in range(len(self.vertices) - 1):
-            edges.append(LineSegment(self.vertices[idx], self.vertices[idx + 1]))
+            edges.append(lib.line.LineSegment(self.vertices[idx], self.vertices[idx + 1]))
 
-        edges.append(LineSegment(self.vertices[-1], self.vertices[0]))
+        edges.append(lib.line.LineSegment(self.vertices[-1], self.vertices[0]))
 
         return edges
 
