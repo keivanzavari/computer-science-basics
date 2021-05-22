@@ -18,6 +18,9 @@ class Line:
     def as_tuple(self) -> Tuple[float, float, float]:
         return (self.a, self.b, self.c)
 
+    def __str__(self) -> str:
+        return f"line: {self.a} x + {self.b} y + {self.c} = 0"
+
 
 class LineSegment:
     def __init__(self, point_a: Point, point_b: Point):
@@ -30,6 +33,9 @@ class LineSegment:
         if (self.point_a.y < y and self.point_b.y < y):
             return False
         return True
+
+    def __str__(self) -> str:
+        return f"line segment between points {self.point_a}, {self.point_b}"
 
 
 def convert_to_line(line_segment: LineSegment) -> Line:
