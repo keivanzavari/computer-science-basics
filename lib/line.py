@@ -1,5 +1,5 @@
 from typing import Optional, Tuple
-import functools
+from functools import singledispatch
 import numpy as np
 
 from lib.point import Point
@@ -36,21 +36,21 @@ def convert_to_line(line_segment: LineSegment) -> Line:
     return Line(line_segment.point_a, line_segment.point_b)
 
 
-@functools.singledispatch
+@singledispatch
 def compute_intersection(_, __) -> Optional[Point]:
     return None
 
 
-@compute_intersection.register
-def compute_intersection(line_1: Line, line_2: Line) -> Optional[Point]:
+@compute_intersection.register(Line)
+def _(line_1: Line, line_2: Line) -> Optional[Point]:
     intersection = lib.geometry.cross3(line_1.as_tuple(), line_2.as_tuple())
     if lib.math_utils.are_almost_equal(intersection[2], 0):
         return None
     return Point(intersection[0], intersection[1])
 
 
-@compute_intersection.register
-def compute_intersection(line_segment_1: LineSegment, line_segment_2: LineSegment) -> Optional[Point]:
+@compute_intersection.register(LineSegment)
+def _(line_segment_1: LineSegment, line_segment_2: LineSegment) -> Optional[Point]:
     line_1 = convert_to_line(line_segment_1)
     if (line_1.are_on_the_same_side(line_segment_2.point_a, line_segment_2.point_b)):
         return None
