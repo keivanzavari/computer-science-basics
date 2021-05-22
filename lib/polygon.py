@@ -1,14 +1,19 @@
-from typing import List
+from typing import List, Type
 import sys
 
 from lib.point import Point
 from lib.line import LineSegment
+import lib.geometry
+import lib.math_utils
 
 
 class Polygon:
     def __init__(self, vertices: List[Point]) -> None:
         if not isinstance(vertices, list):
-            raise IOError("input vertices should be a list")
+            raise TypeError("input vertices should be a list")
+        if len(vertices) <= 2:
+            raise IOError("Polygon should at least have 3 vertices.")
+
         self.vertices = vertices
         self.max_point = Point(-sys.maxsize, -sys.maxsize)
         self.min_point = Point(sys.maxsize, sys.maxsize)
@@ -57,3 +62,40 @@ class Polygon:
         edges.append(LineSegment(self.vertices[-1], self.vertices[0]))
 
         return edges
+
+    def _get_direction_from_three(self, point1: Point, point2: Point, point3: Point) -> int:
+        vec1 = point2 - point1
+        vec2 = point3 - point2
+        _, _, res = lib.geometry.cross(vec1, vec2)
+        direction = 0
+        if lib.math_utils.are_almost_equal(res, 0):
+            direction = 0
+        elif res > 0:
+            direction = 1
+        elif res < 0:
+            direction = -1
+        return direction
+
+    def is_convex(self) -> bool:
+        # go through the vertices
+        # find out if going from one vertex to another requires left or right turn.
+        # If they are all the same, it is convex.
+        if len(self.vertices) == 3:
+            return True
+
+        init_direction = self._get_direction_from_three(self.vertices[0], self.vertices[1], self.vertices[2])
+        print(f"initial direction {init_direction}")
+        for idx in range(1, len(self.vertices)):
+            idx1 = (idx + 1) % len(self.vertices)
+            idx2 = (idx + 2) % len(self.vertices)
+            curr_direction = self._get_direction_from_three(self.vertices[idx], self.vertices[idx1],
+                                                            self.vertices[idx2])
+            print(f"curr_direction {curr_direction}")
+            if curr_direction != init_direction:
+                return False
+
+        curr_direction = self._get_direction_from_three(self.vertices[-2], self.vertices[-1], self.vertices[0])
+        if curr_direction != init_direction:
+            return False
+
+        return True
