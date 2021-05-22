@@ -28,6 +28,11 @@ class Line:
     def __str__(self) -> str:
         return f"line: {self.a} x + {self.b} y + {self.c} = 0"
 
+    def __eq__(self, other: "Line") -> bool:
+        this_coeffs = self.normalize()
+        other_coeffs = other.normalize()
+        return lib.math_utils.are_almost_equal(this_coeffs, other_coeffs)
+
 
 class LineSegment:
     def __init__(self, point_a: Point, point_b: Point):
@@ -43,6 +48,9 @@ class LineSegment:
 
     def __str__(self) -> str:
         return f"line segment between points {self.point_a}, {self.point_b}"
+
+    def __eq__(self, other: "LineSegment") -> bool:
+        return m.are_almost_equal(self.x, other.x) and m.are_almost_equal(self.y, other.y)
 
 
 def convert_to_line(line_segment: LineSegment) -> Line:
