@@ -70,12 +70,15 @@ class Polygon:
             # edge 0 is between vertex 0 and vertex 1
             # edge 1 is between vertex 1 and vertex 2
             # edge 0 and edge 1 should only intersect at vertex 1
-            idx1 = (idx + 1) % len(self.vertices)
-            intersection = lib.line.compute_intersection(edges[idx], edges[idx1])
-            if intersection is not None:
-                if intersection != self.vertices[idx1]:
-                    return False
-        return True
+            # between edge 0 and edge j should not be any intersection except at the vertices
+            for edge_idx, edge in enumerate(edges):
+                if idx != edge_idx:
+                    intersection = lib.line.compute_intersection(edges[idx], edge)
+                    if intersection is not None:
+                        if intersection not in self.vertices:
+                            print(f"Self intersecting meeting at point {intersection}")
+                            return True
+        return False
 
     def _get_direction_from_three(self, point1: Point, point2: Point, point3: Point) -> int:
         vec1 = point2 - point1
