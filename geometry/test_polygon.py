@@ -66,16 +66,17 @@ def generate_polygon(num_vertices: int, convex: bool = True) -> List[Point]:
 if __name__ == "__main__":
     points = generate_polygon(5, False)
     random_polygon = Polygon(points)
-    print(points)
+    is_convex = random_polygon.is_convex()
+    print(f"Is polygon convex: {is_convex}")
 
     arr = to_array(random_polygon)
     matplotlib_polygon = pt.Polygon(arr)
 
     fig, ax = plt.subplots()
-    colors = 100 * np.random.rand(5)
+    colors = 100 * np.array([0.6])
     patches = mc.PatchCollection([matplotlib_polygon], alpha=0.4)
     patches.set_array(colors)
     ax.add_collection(patches)
-    plt.plot(0, 0)
-    # plt.show()
-    random_polygon.is_convex()
+    plt.plot(arr[:, 0], arr[:, 1], "*", markersize=10)
+    plt.grid(True)
+    plt.show()
