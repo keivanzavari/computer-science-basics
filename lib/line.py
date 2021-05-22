@@ -46,7 +46,8 @@ def _(line_1: Line, line_2: Line) -> Optional[Point]:
     intersection = lib.geometry.cross3(line_1.as_tuple(), line_2.as_tuple())
     if lib.math_utils.are_almost_equal(intersection[2], 0):
         return None
-    return Point(intersection[0], intersection[1])
+
+    return Point(intersection[0] / intersection[2], intersection[1] / intersection[2])
 
 
 @compute_intersection.register(LineSegment)
