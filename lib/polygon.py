@@ -100,7 +100,7 @@ class Polygon:
 
         init_direction = self._get_direction_from_three(self.vertices[0], self.vertices[1], self.vertices[2])
         print(f"initial direction {init_direction}")
-        for idx in range(1, len(self.vertices) + 2):
+        for idx in range(1, len(self.vertices)):
             idx1 = (idx + 1) % len(self.vertices)
             idx2 = (idx + 2) % len(self.vertices)
             curr_direction = self._get_direction_from_three(self.vertices[idx], self.vertices[idx1],
