@@ -102,15 +102,14 @@ class Polygon:
             return True
 
         init_direction = self._get_direction_from_three(self.vertices[0], self.vertices[1], self.vertices[2])
-        print(f"initial direction {init_direction}")
         for idx in range(1, len(self.vertices)):
             idx1 = (idx + 1) % len(self.vertices)
             idx2 = (idx + 2) % len(self.vertices)
             curr_direction = self._get_direction_from_three(self.vertices[idx], self.vertices[idx1],
                                                             self.vertices[idx2])
-            print(f"curr_direction {curr_direction}")
             if curr_direction != init_direction:
+                print(f"Change of direction detected at vertex {self.vertices[idx1]}")
                 return False
 
-        # If it is convex, check for self intersection.
+        # If it is convexso far, check for self intersection.
         return not self.is_self_intersecting()
