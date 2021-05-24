@@ -52,11 +52,18 @@ def print_one_and_twos_complement(binary_num):
     print(f"2's complement: ", *twos, sep="")
 
 
+def get_binary(num):
+    # works for negative.
+    binary_1 = format((1 << 8) + num, "08b")
+
+    # works for both negative and positive.
+    binary_2 = bin(((1 << 8) - 1) & num)
+    return binary_2
+
+
 num_in_str = "00100100"
 print_one_and_twos_complement(num_in_str)
-num = -int(num_in_str, 2)
-# works for negative.
-binary_1 = format((1 << 8) + num, "08b")
 
-# works for both negative and positive.
-binary_2 = bin(((1 << 8) - 1) & num)
+num = int(num_in_str, 2)
+b = get_binary(-num)
+print(b)
