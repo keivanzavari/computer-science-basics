@@ -9,9 +9,19 @@ template <typename T>
 std::ostream &operator<<(std::ostream &os, const std::vector<T> &container) {
   os << "[";
   for (const auto &v : container) {
-    os << v << " ";
+    os << v << ",";
   }
   os << "]";
+  return os;
+}
+
+template <typename T>
+std::ostream &operator<<(std::ostream &os, const std::vector<std::vector<T>> &container) {
+  os << "----\n";
+  for (const auto &v : container) {
+    os << v << "\n";
+  }
+  os << "----";
   return os;
 }
 
