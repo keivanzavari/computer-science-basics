@@ -14,7 +14,6 @@
 //
 
 #include <queue>
-#include <unordered_set>
 #include <vector>
 
 #include "../include/ostream_overload.h"
@@ -28,25 +27,8 @@ bool operator==(const IndexPair& pair1, const IndexPair& pair2) {
   return pair1.row == pair2.row && pair1.col == pair2.col;
 }
 
-struct IndexPairHash {
-  std::size_t operator()(const IndexPair& pair) const noexcept {
-    std::size_t h1 = std::hash<int>{}(pair.row);
-    std::size_t h2 = std::hash<int>{}(pair.col);
-    return h1 ^ (h2 << 1);  // or use boost::hash_combine
-  }
-};
-
 std::ostream& operator<<(std::ostream& os, const IndexPair& pair) {
   os << "(" << pair.row << ", " << pair.col << ")";
-  return os;
-}
-
-std::ostream& operator<<(std::ostream& os, const std::unordered_set<IndexPair, IndexPairHash>& container) {
-  os << "{";
-  for (const auto& v : container) {
-    os << v << ", ";
-  }
-  os << "}";
   return os;
 }
 
@@ -66,9 +48,9 @@ std::vector<IndexPair> getNeighbors(int board_height, int board_width, const Ind
 }
 
 void runBreathFirstSearch(const std::vector<std::vector<int>>& board, const IndexPair& start,
-                          std::unordered_set<IndexPair, IndexPairHash>& visited) {
-  if (visited.contains(start)) return;
-  visited.insert(start);
+                          std::vector<std::vector<bool>>& visited) {
+  if (visited[start.row][start.col]) return;
+  visited[start.row][start.col] = true;
   std::queue<IndexPair> qu;
   qu.push(start);
   while (!qu.empty()) {
@@ -76,9 +58,9 @@ void runBreathFirstSearch(const std::vector<std::vector<int>>& board, const Inde
     qu.pop();
     auto neighbors = getNeighbors(board.size(), board[0].size(), index);
     for (const auto& neighbor : neighbors) {
-      if (!visited.contains(neighbor) && board[neighbor.row][neighbor.col] == 1) {
+      if (!visited[neighbor.row][neighbor.col] && board[neighbor.row][neighbor.col] == 1) {
         // std::cout << "visiting neighbor " << neighbor << "\n";
-        visited.insert(neighbor);
+        visited[neighbor.row][neighbor.col] = true;
         qu.push(neighbor);
       }
     }
@@ -91,13 +73,13 @@ int findNumIslands(const std::vector<std::vector<int>>& board) {
   // when you reach a 1, if that 1 is not visited before, run a bfs and reach all the neighbors of that 1.
   // bfs returns a hash set of visited places.
   // every time the size of hash set changes, increase the number of islands by one.
-  std::unordered_set<IndexPair, IndexPairHash> visited;
+  std::vector<std::vector<bool>> visited(board.size(), std::vector<bool>(board[0].size(), false));
   int num_islands = 0;
   for (int row = 0; row < board.size(); ++row) {
     for (int col = 0; col < board[0].size(); ++col) {
       if (board[row][col] == 1) {
         IndexPair index{row, col};
-        if (!visited.contains(index)) {
+        if (!visited[index.row][index.col]) {
           // std::cout << "\n----- bfs --------\n";
           runBreathFirstSearch(board, index, visited);
           ++num_islands;
