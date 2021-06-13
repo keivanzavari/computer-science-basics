@@ -1,4 +1,4 @@
-from random import random
+import random
 from typing import List
 import numpy as np
 import matplotlib.pyplot as plt
@@ -24,7 +24,6 @@ def to_array(p: Polygon) -> np.ndarray:
 
 
 def generate_random_points(num_points: int) -> List[Point]:
-    import random
     points = []
     r = Range(0, 10)
     for i in range(num_points):
@@ -71,9 +70,10 @@ if __name__ == "__main__":
 
     arr = to_array(random_polygon)
     matplotlib_polygon = pt.Polygon(arr)
+    matplotlib_polygon.set_edgecolor([0.5, 0, 0])
 
     fig, ax = plt.subplots()
-    colors = 100 * np.array([0.6])
+    colors = 100 * np.array([0.0])
     patches = mc.PatchCollection([matplotlib_polygon], alpha=0.4)
     patches.set_array(colors)
     ax.add_collection(patches)
