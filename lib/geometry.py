@@ -2,6 +2,19 @@ import math
 from typing import Tuple
 
 from lib.point import Point
+import lib.math_utils as utils
+
+
+class Circle:
+    def __init__(self) -> None:
+        self.center = Point()
+        self.radius = 0.0
+
+    def __eq__(self, o: object) -> bool:
+        return o.center == self.center and utils.are_almost_equal(o.radius, self.radius)
+
+    def __hash__(self) -> int:
+        return hash((self.center, self.radius))
 
 
 def cross(point_1: Point, point_2: Point) -> Tuple[float, float, float]:
