@@ -32,12 +32,12 @@ std::ostream& operator<<(std::ostream& os, const IndexPair& pair) {
   return os;
 }
 
-std::vector<IndexPair> getNeighbors(int board_height, int board_width, const IndexPair& idx) {
+static std::vector<IndexPair> getNeighbors(int board_height, int board_width, const IndexPair& idx) {
   if (0 > idx.row || idx.row >= board_height || 0 > idx.col || idx.col >= board_width) return {};
   std::vector<IndexPair> neighbors;
-  std::vector<IndexPair> options{{idx.row - 1, idx.col - 1}, {idx.row + 1, idx.col + 1}, {idx.row + 1, idx.col - 1},
-                                 {idx.row - 1, idx.col + 1}, {idx.row - 1, idx.col},     {idx.row + 1, idx.col},
-                                 {idx.row, idx.col - 1},     {idx.row, idx.col + 1}};
+  const std::vector<IndexPair> options{
+      {idx.row - 1, idx.col - 1}, {idx.row + 1, idx.col + 1}, {idx.row + 1, idx.col - 1}, {idx.row - 1, idx.col + 1},
+      {idx.row - 1, idx.col},     {idx.row + 1, idx.col},     {idx.row, idx.col - 1},     {idx.row, idx.col + 1}};
   for (const auto option : options) {
     if (0 <= option.row && option.row < board_height && 0 <= option.col && option.col < board_width) {
       neighbors.push_back(option);
@@ -91,15 +91,27 @@ int findNumIslands(const std::vector<std::vector<int>>& board) {
 }
 
 int main() {
+  // {
+  //   {0,0,0,0,0,0,0},
+  //   {0,0,0,0,0,1,0},
+  //   {1,1,0,0,0,0,1},
+  //   {1,1,0,0,0,0,0},
+  //   {0,0,0,0,1,0,0},
+  //   {0,0,0,1,1,0,0},
+  //   {0,0,0,0,1,0,0}
+  // };
   // clang-format off
-  std::vector<std::vector<int>> board = {
-    {0,0,0,0,0,0,0},
-    {0,0,0,0,0,1,0},
-    {1,1,0,0,0,0,1},
-    {1,1,0,0,0,0,0},
-    {0,0,0,0,1,0,0},
-    {0,0,0,1,1,0,0},
-    {0,0,0,0,1,0,0}
+  std::vector<std::vector<int>> board =
+  {
+    {0,1,0},
+    {0,1,0},
+    {0,0,0},
+    {1,1,0},
+    {1,0,1},
+    {0,1,1},
+    {1,1,1},
+    {0,1,1},
+    {1,0,1},
   };
   // clang-format on
 
